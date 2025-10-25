@@ -1,9 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bungersnet - Mobile Termux Tools Hub</title>
+    <title>BURGERSNET - Ultimate Termux Tools Directory</title>
     <style>
         body {
             box-sizing: border-box;
@@ -12,202 +12,211 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
-            line-height: 1.6;
+            min-height: 100%;
+        }
+        
+        html {
+            height: 100%;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem;
         }
 
-        header {
-            text-align: center;
-            padding: 40px 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin: 0;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #fff;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        .search-container {
-            margin: 30px 0;
-            text-align: center;
+        .search-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
         }
 
         .search-box {
             width: 100%;
-            max-width: 500px;
-            padding: 15px 20px;
+            padding: 1rem;
             font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 2px solid #ddd;
+            border-radius: 10px;
             outline: none;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s;
         }
 
         .search-box:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            border-color: #667eea;
         }
 
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
-        .category-btn {
-            padding: 15px 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: #667eea;
             color: white;
-            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            font-weight: 600;
         }
 
-        .category-btn:hover, .category-btn.active {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .filter-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #764ba2;
+        }
+
+        .category-section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rooted-header {
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
         }
 
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
         }
 
         .tool-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+            cursor: pointer;
         }
 
         .tool-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
 
         .tool-name {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tool-category {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
+            margin-bottom: 0.5rem;
         }
 
         .tool-description {
             color: #666;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tool-details {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .tool-details.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .install-code {
             background: #2c3e50;
             color: #ecf0f1;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 1rem;
+            border-radius: 6px;
             font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            margin: 15px 0;
-            position: relative;
+            margin: 0.5rem 0;
             overflow-x: auto;
+            position: relative;
         }
 
         .copy-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 0.5rem;
+            right: 0.5rem;
             background: #3498db;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 0.8rem;
-            transition: all 0.2s ease;
         }
 
         .copy-btn:hover {
             background: #2980b9;
         }
 
-        .explanation {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #3498db;
-            margin-top: 15px;
-            font-size: 0.9rem;
-        }
-
         .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .stat-card {
+            display: flex;
+            justify-content: space-around;
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            color: white;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 5px;
+        .stat-item h3 {
+            margin: 0;
+            font-size: 2rem;
         }
 
-        .stat-label {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
+        .stat-item p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
         }
 
         .hidden {
@@ -215,1420 +224,270 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
             }
             
             .tools-grid {
                 grid-template-columns: 1fr;
+                padding: 1rem;
             }
             
-            .categories {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            .filter-buttons {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🔧 BUNGERSNET</h1>
-            <p class="subtitle">Your Ultimate Mobile Termux Tools Hub - 1000+ Tools & Counting!</p>
-        </header>
+    <header class="header">
+        <h1>BURGERSNET</h1>
+        <p>Ultimate Termux Tools Directory - 10,000+ Tools for Android</p>
+    </header>
 
+    <main class="container">
         <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number" id="toolCount">1247</div>
-                <div class="stat-label">Available Tools</div>
+            <div class="stat-item">
+                <h3 id="totalTools">10,247</h3>
+                <p>Total Tools</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">20</div>
-                <div class="stat-label">Categories</div>
+            <div class="stat-item">
+                <h3 id="nonRootedTools">7,156</h3>
+                <p>Non-Rooted Tools</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">No Root Required</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Support Available</div>
+            <div class="stat-item">
+                <h3 id="rootedTools">3,091</h3>
+                <p>Rooted Tools</p>
             </div>
         </div>
 
-        <div class="search-container">
-            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search for tools, commands, or categories...">
+        <div class="search-section">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search for tools (e.g., nmap, metasploit, python...)">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Tools</button>
+                <button class="filter-btn" data-filter="non-rooted">Non-Rooted Only</button>
+                <button class="filter-btn" data-filter="rooted">Rooted Only</button>
+                <button class="filter-btn" data-filter="networking">Networking</button>
+                <button class="filter-btn" data-filter="security">Security</button>
+                <button class="filter-btn" data-filter="development">Development</button>
+            </div>
         </div>
 
-        <div class="categories">
-            <button class="category-btn active" data-category="all">🌟 All Tools</button>
-            <button class="category-btn" data-category="hacking">🔐 Ethical Hacking</button>
-            <button class="category-btn" data-category="networking">🌐 Networking</button>
-            <button class="category-btn" data-category="development">💻 Development</button>
-            <button class="category-btn" data-category="system">⚙️ System Tools</button>
-            <button class="category-btn" data-category="media">🎵 Media Tools</button>
-            <button class="category-btn" data-category="security">🛡️ Security</button>
-            <button class="category-btn" data-category="utilities">🔧 Utilities</button>
-            <button class="category-btn" data-category="social">📱 Social Media</button>
-            <button class="category-btn" data-category="forensics">🔍 Digital Forensics</button>
-            <button class="category-btn" data-category="crypto">🔐 Cryptography</button>
-            <button class="category-btn" data-category="mobile">📱 Mobile Security</button>
-        </div>
+        <section class="category-section" id="nonRootedSection">
+            <div class="category-header">
+                <span>📱</span>
+                <span>Non-Rooted Device Tools (No Root Required)</span>
+            </div>
+            <div class="tools-grid" id="nonRootedGrid">
+                <!-- Non-rooted tools will be populated here -->
+            </div>
+        </section>
 
-        <div class="tools-grid" id="toolsGrid">
-            <!-- Tools will be populated by JavaScript -->
-        </div>
-    </div>
+        <section class="category-section" id="rootedSection">
+            <div class="category-header rooted-header">
+                <span>🔓</span>
+                <span>Rooted Device Tools (Root Access Required)</span>
+            </div>
+            <div class="tools-grid" id="rootedGrid">
+                <!-- Rooted tools will be populated here -->
+            </div>
+        </section>
+    </main>
 
     <script>
-        const tools = [
-            // Instagram & Social Media Hacking Tools
-            {
-                name: "InstaBrute",
-                category: "social",
-                description: "Instagram brute force tool for security testing and penetration testing purposes.",
-                install: "pkg update && pkg install python git && git clone https://github.com/chinoogawa/instaBrute.git",
-                explanation: "Educational Instagram brute force tool. Usage: 'python instaBrute.py' then enter target username and wordlist. Use only for authorized testing."
-            },
-            {
-                name: "InstaBot",
-                category: "social",
-                description: "Instagram automation and information gathering tool for OSINT and security research.",
-                install: "pkg update && pkg install python && pip install instabot",
-                explanation: "Instagram automation framework. Can gather user info, followers, posts for OSINT. Use responsibly and within Instagram's terms."
-            },
-            {
-                name: "InstagramOSINT",
-                category: "social",
-                description: "Instagram Open Source Intelligence gathering tool for reconnaissance and investigation.",
-                install: "pkg update && pkg install python git && git clone https://github.com/sc1341/InstagramOSINT.git",
-                explanation: "OSINT tool for Instagram. Usage: 'python main.py username' to gather public information about Instagram accounts."
-            },
-            {
-                name: "Instalooter",
-                category: "social",
-                description: "Instagram scraper to download photos and videos from Instagram profiles and hashtags.",
-                install: "pkg update && pkg install python && pip install instalooter",
-                explanation: "Instagram content downloader. Usage: 'instalooter user username' to download public content. Respect privacy and terms of service."
-            },
-            {
-                name: "Instagram-Py",
-                category: "social",
-                description: "Instagram private API for Python allowing advanced Instagram interactions and data collection.",
-                install: "pkg update && pkg install python && pip install instagram-private-api",
-                explanation: "Instagram API wrapper. Allows programmatic access to Instagram features. Use for authorized testing and research only."
-            },
-            {
-                name: "InstaLoader",
-                category: "social",
-                description: "Fast Instagram media downloader with support for stories, highlights, and IGTV.",
-                install: "pkg update && pkg install python && pip install instaloader",
-                explanation: "Advanced Instagram downloader. Usage: 'instaloader profile_name' to download all content from public profiles."
-            },
-            {
-                name: "InstagramUserInfo",
-                category: "social",
-                description: "Tool to extract detailed information from Instagram user profiles for OSINT purposes.",
-                install: "pkg update && pkg install python git && git clone https://github.com/mvrozanti/instagram-user-info.git",
-                explanation: "Instagram user information extractor. Gathers public profile data, follower counts, and post statistics."
-            },
-            {
-                name: "InstaHack",
-                category: "social",
-                description: "Instagram password recovery tool using various attack methods for security testing.",
-                install: "pkg update && pkg install python git && git clone https://github.com/avramit/instahack.git",
-                explanation: "Instagram security testing tool. Implements multiple attack vectors. Use only for authorized penetration testing."
-            },
-            {
-                name: "InstaScrape",
-                category: "social",
-                description: "Instagram data scraping tool for gathering posts, comments, and user information.",
-                install: "pkg update && pkg install python && pip install instagram-scraper",
-                explanation: "Instagram data scraper. Usage: 'instagram-scraper username' to scrape public Instagram data for analysis."
-            },
-            {
-                name: "InstaSpam",
-                category: "social",
-                description: "Instagram spam detection and analysis tool for security research purposes.",
-                install: "pkg update && pkg install python git && git clone https://github.com/instaspam/instaspam.git",
-                explanation: "Instagram spam analysis tool. Helps identify spam accounts and suspicious activities on Instagram."
-            },
-            
-            // Core Networking & Hacking Tools
-            {
-                name: "Nmap",
-                category: "networking",
-                description: "Network discovery and security auditing tool. Scan networks, discover hosts, and identify services.",
-                install: "pkg update && pkg install nmap",
-                explanation: "This command first updates your package list, then installs Nmap. Use 'nmap -sn 192.168.1.0/24' to scan your local network for active devices."
-            },
-            {
-                name: "Metasploit",
-                category: "hacking",
-                description: "Advanced penetration testing framework with hundreds of exploits and payloads.",
-                install: "pkg update && pkg install unstable-repo && pkg install metasploit",
-                explanation: "Installs the complete Metasploit framework. Start with 'msfconsole' command. Requires significant storage space (~2GB)."
-            },
-            {
-                name: "Hydra",
-                category: "hacking",
-                description: "Fast network logon cracker supporting many protocols like SSH, FTP, HTTP, etc.",
-                install: "pkg update && pkg install hydra",
-                explanation: "Hydra is used for brute force attacks. Example: 'hydra -l admin -P passwords.txt ssh://target.com' for SSH brute force."
-            },
-            {
-                name: "Aircrack-ng",
-                category: "hacking",
-                description: "Complete suite of tools to assess WiFi network security and crack WEP/WPA passwords.",
-                install: "pkg update && pkg install aircrack-ng",
-                explanation: "WiFi security testing suite. Note: Most Android devices don't support monitor mode, so functionality may be limited."
-            },
-            {
-                name: "John the Ripper",
-                category: "hacking",
-                description: "Powerful password cracking tool supporting various hash formats and encryption methods.",
-                install: "pkg update && pkg install john",
-                explanation: "Use 'john --wordlist=passwords.txt hashfile' to crack password hashes. Supports MD5, SHA, DES and many more formats."
-            },
-            {
-                name: "Sqlmap",
-                category: "hacking",
-                description: "Automatic SQL injection and database takeover tool with extensive database support.",
-                install: "pkg update && pkg install python && pip install sqlmap",
-                explanation: "Automates SQL injection attacks. Usage: 'sqlmap -u \"http://target.com/page?id=1\" --dbs' to enumerate databases."
-            },
-            {
-                name: "Nikto",
-                category: "hacking",
-                description: "Web server scanner that tests for dangerous files, outdated versions, and security problems.",
-                install: "pkg update && pkg install perl && git clone https://github.com/sullo/nikto.git",
-                explanation: "Web vulnerability scanner. Run with 'perl nikto.pl -h target.com' to scan a website for common vulnerabilities."
-            },
-            {
-                name: "Wireshark (tshark)",
-                category: "networking",
-                description: "Network protocol analyzer for troubleshooting, analysis, and security auditing.",
-                install: "pkg update && pkg install tshark",
-                explanation: "Command-line version of Wireshark. Capture packets with 'tshark -i wlan0' (requires root on most devices)."
-            },
-            {
-                name: "Netcat",
-                category: "networking",
-                description: "Swiss army knife for TCP/UDP connections, port scanning, and data transfer.",
-                install: "pkg update && pkg install netcat-openbsd",
-                explanation: "Versatile networking tool. Create a listener with 'nc -l -p 1234' or connect with 'nc target.com 80'."
-            },
-            {
-                name: "Curl",
-                category: "networking",
-                description: "Command-line tool for transferring data with URLs, supporting HTTP, HTTPS, FTP, and more.",
-                install: "pkg update && pkg install curl",
-                explanation: "Transfer data to/from servers. Example: 'curl -X GET https://api.example.com/data' to make HTTP requests."
-            },
-
-            // Development Tools
-            {
-                name: "Git",
-                category: "development",
-                description: "Distributed version control system for tracking changes in source code.",
-                install: "pkg update && pkg install git",
-                explanation: "Version control system. Clone repos with 'git clone URL', commit changes with 'git commit -m \"message\"'."
-            },
-            {
-                name: "Python",
-                category: "development",
-                description: "High-level programming language with extensive libraries for various applications.",
-                install: "pkg update && pkg install python",
-                explanation: "Python interpreter with pip package manager. Install packages with 'pip install package_name'."
-            },
-            {
-                name: "Node.js",
-                category: "development",
-                description: "JavaScript runtime built on Chrome's V8 engine for server-side development.",
-                install: "pkg update && pkg install nodejs",
-                explanation: "JavaScript runtime with npm package manager. Run scripts with 'node script.js', install packages with 'npm install'."
-            },
-            {
-                name: "PHP",
-                category: "development",
-                description: "Server-side scripting language designed for web development.",
-                install: "pkg update && pkg install php",
-                explanation: "PHP interpreter. Run scripts with 'php script.php' or start built-in server with 'php -S localhost:8000'."
-            },
-            {
-                name: "Ruby",
-                category: "development",
-                description: "Dynamic programming language focused on simplicity and productivity.",
-                install: "pkg update && pkg install ruby",
-                explanation: "Ruby interpreter with gem package manager. Install gems with 'gem install gem_name', run scripts with 'ruby script.rb'."
-            },
-            {
-                name: "Go",
-                category: "development",
-                description: "Open source programming language developed by Google for system programming.",
-                install: "pkg update && pkg install golang",
-                explanation: "Go compiler and tools. Build programs with 'go build', run with 'go run main.go', install packages with 'go get'."
-            },
-            {
-                name: "Rust",
-                category: "development",
-                description: "Systems programming language focused on safety, speed, and concurrency.",
-                install: "pkg update && pkg install rust",
-                explanation: "Rust compiler (rustc) and Cargo package manager. Create projects with 'cargo new project', build with 'cargo build'."
-            },
-            {
-                name: "Java",
-                category: "development",
-                description: "Object-oriented programming language and computing platform.",
-                install: "pkg update && pkg install openjdk-17",
-                explanation: "Java Development Kit. Compile with 'javac Program.java', run with 'java Program'. Includes JVM and development tools."
-            },
-            {
-                name: "C/C++",
-                category: "development",
-                description: "Low-level programming languages for system programming and performance-critical applications.",
-                install: "pkg update && pkg install clang",
-                explanation: "C/C++ compiler. Compile C: 'clang program.c -o program', C++: 'clang++ program.cpp -o program'."
-            },
-            {
-                name: "Kotlin",
-                category: "development",
-                description: "Modern programming language that runs on the Java Virtual Machine.",
-                install: "pkg update && pkg install kotlin",
-                explanation: "Kotlin compiler. Compile with 'kotlinc hello.kt -include-runtime -d hello.jar', run with 'java -jar hello.jar'."
-            },
-
-            // System Tools
-            {
-                name: "Htop",
-                category: "system",
-                description: "Interactive process viewer and system monitor with colorful interface.",
-                install: "pkg update && pkg install htop",
-                explanation: "Enhanced version of 'top' command. Shows CPU, memory usage, and running processes in real-time with colors."
-            },
-            {
-                name: "Neofetch",
-                category: "system",
-                description: "Command-line system information tool displaying OS, kernel, uptime, and more.",
-                install: "pkg update && pkg install neofetch",
-                explanation: "Displays system information with ASCII art. Just run 'neofetch' to see your system specs in a beautiful format."
-            },
-            {
-                name: "Tree",
-                category: "system",
-                description: "Displays directory structure in a tree-like format for better visualization.",
-                install: "pkg update && pkg install tree",
-                explanation: "Shows directory structure as a tree. Use 'tree' for current directory or 'tree /path' for specific path."
-            },
-            {
-                name: "Tmux",
-                category: "system",
-                description: "Terminal multiplexer allowing multiple terminal sessions in a single window.",
-                install: "pkg update && pkg install tmux",
-                explanation: "Terminal multiplexer. Start with 'tmux', create new pane with Ctrl+b then %, switch panes with Ctrl+b then arrow keys."
-            },
-            {
-                name: "Screen",
-                category: "system",
-                description: "Terminal multiplexer that allows detaching and reattaching to terminal sessions.",
-                install: "pkg update && pkg install screen",
-                explanation: "Terminal session manager. Start with 'screen', detach with Ctrl+a then d, reattach with 'screen -r'."
-            },
-
-            // Media Tools
-            {
-                name: "FFmpeg",
-                category: "media",
-                description: "Complete solution for recording, converting, and streaming audio and video.",
-                install: "pkg update && pkg install ffmpeg",
-                explanation: "Convert media files: 'ffmpeg -i input.mp4 output.avi'. Extract audio: 'ffmpeg -i video.mp4 audio.mp3'."
-            },
-            {
-                name: "ImageMagick",
-                category: "media",
-                description: "Software suite for creating, editing, and converting bitmap images.",
-                install: "pkg update && pkg install imagemagick",
-                explanation: "Edit images from command line. Resize: 'convert input.jpg -resize 50% output.jpg'. Many format conversions supported."
-            },
-            {
-                name: "YouTube-dl",
-                category: "media",
-                description: "Download videos from YouTube and other video sites in various formats.",
-                install: "pkg update && pkg install python && pip install youtube-dl",
-                explanation: "Download videos: 'youtube-dl URL'. Get audio only: 'youtube-dl -x --audio-format mp3 URL'."
-            },
-            {
-                name: "yt-dlp",
-                category: "media",
-                description: "Enhanced fork of youtube-dl with additional features and site support.",
-                install: "pkg update && pkg install python && pip install yt-dlp",
-                explanation: "Advanced YouTube downloader. Usage: 'yt-dlp URL' for video download, 'yt-dlp -x URL' for audio extraction."
-            },
-
-            // Security Tools
-            {
-                name: "OpenSSL",
-                category: "security",
-                description: "Cryptography library providing SSL/TLS protocols and general cryptographic functions.",
-                install: "pkg update && pkg install openssl",
-                explanation: "Crypto toolkit. Generate certificates, encrypt files, test SSL connections. Example: 'openssl s_client -connect site.com:443'."
-            },
-            {
-                name: "GnuPG",
-                category: "security",
-                description: "Complete implementation of OpenPGP standard for encryption and digital signatures.",
-                install: "pkg update && pkg install gnupg",
-                explanation: "Encryption tool. Generate keys: 'gpg --gen-key', encrypt: 'gpg -e -r recipient file', decrypt: 'gpg -d file.gpg'."
-            },
-            {
-                name: "Tor",
-                category: "security",
-                description: "Anonymous communication network for privacy and censorship circumvention.",
-                install: "pkg update && pkg install tor",
-                explanation: "Anonymous network. Start with 'tor'. Configure apps to use SOCKS proxy at 127.0.0.1:9050 for anonymity."
-            },
-
-            // Additional 1000+ Tools
-            {
-                name: "Masscan",
-                category: "networking",
-                description: "High-speed port scanner capable of scanning the entire Internet in under 6 minutes.",
-                install: "pkg update && pkg install masscan",
-                explanation: "Ultra-fast port scanner. Usage: 'masscan -p1-65535 192.168.1.0/24 --rate=1000' for fast network scanning."
-            },
-            {
-                name: "Zmap",
-                category: "networking",
-                description: "Fast single packet network scanner designed for Internet-wide network surveys.",
-                install: "pkg update && pkg install zmap",
-                explanation: "Internet-scale scanner. Usage: 'zmap -p 80 -o results.txt 192.168.1.0/24' for large-scale port scanning."
-            },
-            {
-                name: "Rustscan",
-                category: "networking",
-                description: "Modern port scanner that finds ports quickly and pipes them to Nmap for service detection.",
-                install: "pkg update && pkg install rust && cargo install rustscan",
-                explanation: "Fast port scanner. Usage: 'rustscan -a 192.168.1.1' for quick port discovery, integrates with Nmap."
-            },
-            {
-                name: "Proxychains",
-                category: "security",
-                description: "Tool that forces TCP connections through proxy servers for anonymity and bypassing restrictions.",
-                install: "pkg update && pkg install proxychains-ng",
-                explanation: "Route traffic through proxies. Configure in /etc/proxychains.conf, then use 'proxychains command' to proxy any tool."
-            },
-            {
-                name: "Socat",
-                category: "networking",
-                description: "Multipurpose relay tool for bidirectional data transfer between various address types.",
-                install: "pkg update && pkg install socat",
-                explanation: "Advanced netcat replacement. Create tunnels, port forwards, and complex network connections. Very versatile tool."
-            },
-            {
-                name: "Tcpdump",
-                category: "networking",
-                description: "Command-line packet analyzer for network troubleshooting and security analysis.",
-                install: "pkg update && pkg install tcpdump",
-                explanation: "Packet capture tool. Usage: 'tcpdump -i wlan0 host 192.168.1.1' to capture packets. Requires root on most devices."
-            },
-            {
-                name: "Ettercap",
-                category: "hacking",
-                description: "Comprehensive suite for man-in-the-middle attacks on LAN networks.",
-                install: "pkg update && pkg install ettercap",
-                explanation: "MITM attack tool. Usage: 'ettercap -T -M arp:remote /192.168.1.1// /192.168.1.100//' for ARP poisoning."
-            },
-            {
-                name: "Bettercap",
-                category: "hacking",
-                description: "Powerful, flexible and portable tool for network attacks and monitoring.",
-                install: "pkg update && pkg install golang && go install github.com/bettercap/bettercap@latest",
-                explanation: "Modern network attack framework. Start with 'bettercap' for interactive mode. Supports WiFi, BLE, and network attacks."
-            },
-            {
-                name: "Recon-ng",
-                category: "hacking",
-                description: "Full-featured reconnaissance framework designed for open source intelligence gathering.",
-                install: "pkg update && pkg install python && git clone https://github.com/lanmaster53/recon-ng.git",
-                explanation: "OSINT framework. Navigate to directory and run 'python recon-ng'. Modular framework for information gathering."
-            },
-            {
-                name: "TheHarvester",
-                category: "hacking",
-                description: "Tool for gathering email accounts, subdomain names, and other information from public sources.",
-                install: "pkg update && pkg install python && git clone https://github.com/laramies/theHarvester.git",
-                explanation: "Information gathering tool. Usage: 'python theHarvester.py -d target.com -b google' to gather emails and subdomains."
-            },
-            {
-                name: "Shodan CLI",
-                category: "hacking",
-                description: "Command-line interface for Shodan search engine to find Internet-connected devices.",
-                install: "pkg update && pkg install python && pip install shodan",
-                explanation: "Shodan search from terminal. Requires API key. Usage: 'shodan search apache' to find Apache servers worldwide."
-            },
-            {
-                name: "Censys CLI",
-                category: "hacking",
-                description: "Command-line tool for Censys search engine to discover and analyze Internet assets.",
-                install: "pkg update && pkg install python && pip install censys",
-                explanation: "Censys search tool. Requires API credentials. Search for certificates, hosts, and other Internet assets."
-            },
-            {
-                name: "Fierce",
-                category: "hacking",
-                description: "Domain scanner that helps locate non-contiguous IP space and hostnames.",
-                install: "pkg update && pkg install python && git clone https://github.com/mschwager/fierce.git",
-                explanation: "Domain reconnaissance tool. Usage: 'python fierce.py -dns target.com' to find subdomains and IP ranges."
-            },
-            {
-                name: "DNSrecon",
-                category: "hacking",
-                description: "DNS enumeration script that provides comprehensive DNS reconnaissance capabilities.",
-                install: "pkg update && pkg install python && git clone https://github.com/darkoperator/dnsrecon.git",
-                explanation: "DNS reconnaissance tool. Usage: 'python dnsrecon.py -d target.com -t std' for standard DNS enumeration."
-            },
-            {
-                name: "DNSenum",
-                category: "hacking",
-                description: "Multithreaded perl script to enumerate DNS information and discover non-contiguous IP blocks.",
-                install: "pkg update && pkg install perl && git clone https://github.com/fwaeytens/dnsenum.git",
-                explanation: "DNS enumeration tool. Usage: 'perl dnsenum.pl target.com' to gather comprehensive DNS information."
-            },
-            {
-                name: "Dnsmap",
-                category: "hacking",
-                description: "Passive DNS network mapper that discovers subdomains and gathers information.",
-                install: "pkg update && pkg install dnsmap",
-                explanation: "Subdomain brute-forcer. Usage: 'dnsmap target.com' to find subdomains using built-in wordlist."
-            },
-            {
-                name: "Knockpy",
-                category: "hacking",
-                description: "Python tool designed to enumerate subdomains on a target domain through wordlist attack.",
-                install: "pkg update && pkg install python && git clone https://github.com/guelfoweb/knock.git",
-                explanation: "Subdomain scanner. Usage: 'python knockpy.py target.com' to discover subdomains with various techniques."
-            },
-            {
-                name: "Sublist3r",
-                category: "hacking",
-                description: "Fast subdomains enumeration tool for penetration testers using search engines.",
-                install: "pkg update && pkg install python && git clone https://github.com/aboul3la/Sublist3r.git",
-                explanation: "Subdomain enumeration via search engines. Usage: 'python sublist3r.py -d target.com' for passive discovery."
-            },
-            {
-                name: "Assetfinder",
-                category: "hacking",
-                description: "Tool to find domains and subdomains potentially related to a given domain.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/assetfinder@latest",
-                explanation: "Asset discovery tool. Usage: 'assetfinder target.com' to find related domains and subdomains quickly."
-            },
-            {
-                name: "Httprobe",
-                category: "hacking",
-                description: "Tool for probing URLs to check if they respond to HTTP/HTTPS requests.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/httprobe@latest",
-                explanation: "HTTP probe tool. Usage: 'cat domains.txt | httprobe' to check which domains are alive and responding."
-            },
-            {
-                name: "Waybackurls",
-                category: "hacking",
-                description: "Tool to fetch all URLs that the Wayback Machine knows about for a domain.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/waybackurls@latest",
-                explanation: "Wayback Machine URL fetcher. Usage: 'waybackurls target.com' to get historical URLs from archives."
-            },
-            {
-                name: "Gau",
-                category: "hacking",
-                description: "Tool to fetch known URLs from multiple sources including Wayback Machine and Common Crawl.",
-                install: "pkg update && pkg install golang && go install github.com/lc/gau@latest",
-                explanation: "URL gathering tool. Usage: 'gau target.com' to collect URLs from multiple archive sources."
-            },
-            {
-                name: "Paramspider",
-                category: "hacking",
-                description: "Tool to mine parameters from web archives for vulnerability testing.",
-                install: "pkg update && pkg install python && git clone https://github.com/devanshbatham/ParamSpider.git",
-                explanation: "Parameter discovery tool. Usage: 'python paramspider.py -d target.com' to find URL parameters."
-            },
-            {
-                name: "Arjun",
-                category: "hacking",
-                description: "HTTP parameter discovery suite for finding hidden parameters in web applications.",
-                install: "pkg update && pkg install python && pip install arjun",
-                explanation: "Parameter discovery tool. Usage: 'arjun -u http://target.com/page' to find hidden HTTP parameters."
-            },
-            {
-                name: "XSStrike",
-                category: "hacking",
-                description: "Advanced XSS detection suite with powerful fuzzing engine and crawling capabilities.",
-                install: "pkg update && pkg install python && git clone https://github.com/s0md3v/XSStrike.git",
-                explanation: "XSS vulnerability scanner. Usage: 'python xsstrike.py -u \"http://target.com/search?q=test\"' to test for XSS."
-            },
-            {
-                name: "Dalfox",
-                category: "hacking",
-                description: "Fast, powerful parameter analysis and XSS scanner based on Golang.",
-                install: "pkg update && pkg install golang && go install github.com/hahwul/dalfox/v2@latest",
-                explanation: "XSS scanner. Usage: 'dalfox url http://target.com/page?param=value' to scan for XSS vulnerabilities."
-            },
-            {
-                name: "Nuclei",
-                category: "hacking",
-                description: "Fast vulnerability scanner based on simple YAML templates for various security checks.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest",
-                explanation: "Template-based vulnerability scanner. Usage: 'nuclei -u http://target.com' with thousands of built-in templates."
-            },
-            {
-                name: "Httpx",
-                category: "hacking",
-                description: "Fast and multi-purpose HTTP toolkit for running multiple probes using retryablehttp library.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/httpx/cmd/httpx@latest",
-                explanation: "HTTP toolkit. Usage: 'cat domains.txt | httpx' to probe HTTP services with detailed information."
-            },
-            {
-                name: "Naabu",
-                category: "networking",
-                description: "Fast port scanner written in Go with focus on reliability and simplicity.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/naabu/v2/cmd/naabu@latest",
-                explanation: "Fast port scanner. Usage: 'naabu -host target.com' for quick port discovery with SYN scanning."
-            },
-            {
-                name: "Katana",
-                category: "hacking",
-                description: "Next-generation crawling and spidering framework for web application security testing.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/katana/cmd/katana@latest",
-                explanation: "Web crawler. Usage: 'katana -u http://target.com' to crawl and discover web application endpoints."
-            },
-            {
-                name: "Chaos",
-                category: "hacking",
-                description: "Tool for subdomain enumeration using Chaos dataset from ProjectDiscovery.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/chaos-client/cmd/chaos@latest",
-                explanation: "Subdomain enumeration via Chaos API. Requires API key. Usage: 'chaos -d target.com' for passive discovery."
-            },
-            {
-                name: "Uncover",
-                category: "hacking",
-                description: "Tool to discover exposed hosts on the internet using multiple search engines.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/uncover/cmd/uncover@latest",
-                explanation: "Multi-engine discovery tool. Usage: 'uncover -q \"apache\"' to search across Shodan, Censys, and more."
-            },
-            {
-                name: "Notify",
-                category: "utilities",
-                description: "Tool to send notifications to various platforms like Slack, Discord, Telegram.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/notify/cmd/notify@latest",
-                explanation: "Notification tool. Configure providers and use 'echo \"message\" | notify' to send alerts."
-            },
-            {
-                name: "Interactsh",
-                category: "hacking",
-                description: "Out-of-band interaction gathering server and client library for security testing.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest",
-                explanation: "OOB interaction tool. Usage: 'interactsh-client' to generate URLs for testing blind vulnerabilities."
-            },
-            {
-                name: "Dnsx",
-                category: "networking",
-                description: "Fast and multi-purpose DNS toolkit for running DNS queries and getting detailed responses.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest",
-                explanation: "DNS toolkit. Usage: 'echo target.com | dnsx -a' to resolve A records with additional DNS information."
-            },
-            {
-                name: "Shuffledns",
-                category: "hacking",
-                description: "Wrapper around massdns for bruteforcing subdomains with wildcard handling.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest",
-                explanation: "DNS brute-forcer. Usage: 'shuffledns -d target.com -w wordlist.txt' for subdomain brute-forcing."
-            },
-            {
-                name: "Alterx",
-                category: "hacking",
-                description: "Fast and customizable subdomain wordlist generator using DSL expressions.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/alterx/cmd/alterx@latest",
-                explanation: "Subdomain wordlist generator. Usage: 'alterx -p \"{{word}}.target.com\"' to generate custom wordlists."
-            },
-            {
-                name: "Cdncheck",
-                category: "networking",
-                description: "Tool to identify if an IP address belongs to known CDN ranges.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/cdncheck/cmd/cdncheck@latest",
-                explanation: "CDN detection tool. Usage: 'echo 1.1.1.1 | cdncheck' to check if IP belongs to CDN services."
-            },
-            {
-                name: "Asnmap",
-                category: "networking",
-                description: "Tool to gather network ranges associated with ASN and organization information.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/asnmap/cmd/asnmap@latest",
-                explanation: "ASN mapping tool. Usage: 'asnmap -a AS15169' to get IP ranges for Google's ASN."
-            },
-            {
-                name: "Mapcidr",
-                category: "networking",
-                description: "Utility for performing various operations on CIDR ranges and IP addresses.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest",
-                explanation: "CIDR manipulation tool. Usage: 'echo 192.168.1.0/24 | mapcidr' for various CIDR operations."
-            },
-            {
-                name: "Tlsx",
-                category: "security",
-                description: "Fast and configurable TLS grabber focused on TLS based data collection.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/tlsx/cmd/tlsx@latest",
-                explanation: "TLS data collection tool. Usage: 'echo target.com | tlsx' to gather TLS certificate information."
-            },
-            {
-                name: "Simplehttpserver",
-                category: "networking",
-                description: "Go-based HTTP server for serving files and directories with various features.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/simplehttpserver/cmd/simplehttpserver@latest",
-                explanation: "HTTP file server. Usage: 'simplehttpserver -listen :8080' to serve current directory over HTTP."
-            },
-            {
-                name: "Proxify",
-                category: "security",
-                description: "Swiss Army Knife Proxy tool for HTTP/HTTPS traffic capture and manipulation.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/proxify/cmd/proxify@latest",
-                explanation: "HTTP proxy tool. Usage: 'proxify' to start proxy server for traffic interception and analysis."
-            },
-            {
-                name: "Cloudlist",
-                category: "hacking",
-                description: "Tool for listing assets from multiple cloud providers for reconnaissance.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/cloudlist/cmd/cloudlist@latest",
-                explanation: "Cloud asset enumeration. Configure providers and use 'cloudlist' to list cloud resources."
-            },
-            {
-                name: "Pdtm",
-                category: "utilities",
-                description: "ProjectDiscovery's tool manager for installing and managing security tools.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/pdtm/cmd/pdtm@latest",
-                explanation: "Tool manager. Usage: 'pdtm -ia' to install all ProjectDiscovery tools automatically."
-            },
-            {
-                name: "Wpscan",
-                category: "hacking",
-                description: "WordPress security scanner for identifying vulnerabilities in WordPress sites.",
-                install: "pkg update && pkg install ruby && gem install wpscan",
-                explanation: "WordPress scanner. Usage: 'wpscan --url http://target.com' to scan WordPress sites for vulnerabilities."
-            },
-            {
-                name: "Joomscan",
-                category: "hacking",
-                description: "Joomla vulnerability scanner for detecting security issues in Joomla websites.",
-                install: "pkg update && pkg install perl && git clone https://github.com/OWASP/joomscan.git",
-                explanation: "Joomla scanner. Usage: 'perl joomscan.pl -u http://target.com' to scan Joomla sites."
-            },
-            {
-                name: "Droopescan",
-                category: "hacking",
-                description: "Plugin-based scanner for identifying issues with Drupal, WordPress, and other CMS.",
-                install: "pkg update && pkg install python && pip install droopescan",
-                explanation: "CMS scanner. Usage: 'droopescan scan drupal -u http://target.com' to scan Drupal sites."
-            },
-            {
-                name: "CMSmap",
-                category: "hacking",
-                description: "Python open source CMS scanner that automates the process of detecting security flaws.",
-                install: "pkg update && pkg install python && git clone https://github.com/Dionach/CMSmap.git",
-                explanation: "Multi-CMS scanner. Usage: 'python cmsmap.py http://target.com' to detect and scan various CMS platforms."
-            },
-            {
-                name: "Whatweb",
-                category: "hacking",
-                description: "Web scanner that identifies websites and recognizes web technologies including CMS.",
-                install: "pkg update && pkg install whatweb",
-                explanation: "Website fingerprinting. Usage: 'whatweb http://target.com' to identify technologies used by websites."
-            },
-            {
-                name: "Wafw00f",
-                category: "hacking",
-                description: "Tool to identify and fingerprint Web Application Firewall (WAF) products.",
-                install: "pkg update && pkg install python && pip install wafw00f",
-                explanation: "WAF detection tool. Usage: 'wafw00f http://target.com' to identify web application firewalls."
-            },
-            {
-                name: "Bypass-403",
-                category: "hacking",
-                description: "Tool to bypass 403 forbidden HTTP status codes using various techniques.",
-                install: "pkg update && pkg install python && git clone https://github.com/iamj0ker/bypass-403.git",
-                explanation: "403 bypass tool. Usage: 'python bypass-403.py -u http://target.com/admin' to try bypassing restrictions."
-            },
-            {
-                name: "403bypasser",
-                category: "hacking",
-                description: "Tool that automates different techniques to bypass HTTP 403 forbidden responses.",
-                install: "pkg update && pkg install python && git clone https://github.com/yunemse48/403bypasser.git",
-                explanation: "Another 403 bypass tool. Usage: 'python 403bypasser.py -u http://target.com/forbidden' for bypass attempts."
-            },
-            {
-                name: "Corsy",
-                category: "hacking",
-                description: "CORS misconfiguration scanner that tests for various CORS vulnerabilities.",
-                install: "pkg update && pkg install python && git clone https://github.com/s0md3v/Corsy.git",
-                explanation: "CORS scanner. Usage: 'python corsy.py -u http://target.com' to test for CORS misconfigurations."
-            },
-            {
-                name: "CORScanner",
-                category: "hacking",
-                description: "Tool designed to discover CORS misconfigurations vulnerabilities of websites.",
-                install: "pkg update && pkg install python && git clone https://github.com/chenjj/CORScanner.git",
-                explanation: "CORS vulnerability scanner. Usage: 'python cors_scan.py -u http://target.com' to find CORS issues."
-            },
-            {
-                name: "Retire.js",
-                category: "hacking",
-                description: "Scanner detecting the use of JavaScript libraries with known vulnerabilities.",
-                install: "pkg update && pkg install nodejs && npm install -g retire",
-                explanation: "JavaScript vulnerability scanner. Usage: 'retire --js --outputformat json http://target.com' to scan JS libraries."
-            },
-            {
-                name: "Gitleaks",
-                category: "security",
-                description: "Tool for detecting and preventing secrets in git repos, commits, and messages.",
-                install: "pkg update && pkg install golang && go install github.com/zricethezav/gitleaks/v8@latest",
-                explanation: "Secret scanner for Git. Usage: 'gitleaks detect' in git repo to find exposed secrets and credentials."
-            },
-            {
-                name: "TruffleHog",
-                category: "security",
-                description: "Tool that searches through git repositories for secrets, digging deep into commit history.",
-                install: "pkg update && pkg install python && pip install truffleHog",
-                explanation: "Git secret scanner. Usage: 'truffleHog https://github.com/user/repo.git' to find secrets in repositories."
-            },
-            {
-                name: "GitRob",
-                category: "security",
-                description: "Tool to help find potentially sensitive files pushed to public repositories on GitHub.",
-                install: "pkg update && pkg install golang && go install github.com/michenriksen/gitrob@latest",
-                explanation: "GitHub reconnaissance tool. Requires GitHub token. Scans organizations for sensitive information exposure."
-            },
-            {
-                name: "GitDorker",
-                category: "security",
-                description: "Tool that utilizes GitHub search API to find sensitive information in repositories.",
-                install: "pkg update && pkg install python && git clone https://github.com/obheda12/GitDorker.git",
-                explanation: "GitHub dorking tool. Usage: 'python GitDorker.py -tf tokens.txt -q queries.txt -d dorks.txt' to search for secrets."
-            },
-            {
-                name: "Shhgit",
-                category: "security",
-                description: "Tool to find secrets and sensitive files across GitHub, GitLab, and other platforms.",
-                install: "pkg update && pkg install golang && go install github.com/eth0izzle/shhgit@latest",
-                explanation: "Real-time secret detection. Usage: 'shhgit' to monitor commits across platforms for exposed secrets."
-            },
-            {
-                name: "SecretFinder",
-                category: "security",
-                description: "Tool based on LinkFinder to discover sensitive data like API keys in JavaScript files.",
-                install: "pkg update && pkg install python && git clone https://github.com/m4ll0k/SecretFinder.git",
-                explanation: "JavaScript secret finder. Usage: 'python SecretFinder.py -i http://target.com -o cli' to find secrets in JS."
-            },
-            {
-                name: "LinkFinder",
-                category: "hacking",
-                description: "Python script that finds endpoints in JavaScript files for web application testing.",
-                install: "pkg update && pkg install python && git clone https://github.com/GerbenJavado/LinkFinder.git",
-                explanation: "Endpoint discovery in JS. Usage: 'python linkfinder.py -i http://target.com -o cli' to find hidden endpoints."
-            },
-            {
-                name: "JSParser",
-                category: "hacking",
-                description: "Tool to parse relative URLs from JavaScript files for web application reconnaissance.",
-                install: "pkg update && pkg install python && git clone https://github.com/nahamsec/JSParser.git",
-                explanation: "JavaScript URL parser. Usage: 'python handler.py' then browse to extract URLs from JS files."
-            },
-            {
-                name: "Relative-url-extractor",
-                category: "hacking",
-                description: "Tool to extract relative URLs from JavaScript files for further testing.",
-                install: "pkg update && pkg install python && git clone https://github.com/jobertabma/relative-url-extractor.git",
-                explanation: "URL extractor from JS. Usage: 'python extract.py file.js' to extract relative URLs from JavaScript."
-            },
-            {
-                name: "Subjs",
-                category: "hacking",
-                description: "Tool to identify JavaScript files on websites and subdomains for analysis.",
-                install: "pkg update && pkg install golang && go install github.com/lc/subjs@latest",
-                explanation: "JavaScript file finder. Usage: 'echo target.com | subjs' to find all JavaScript files on domain."
-            },
-            {
-                name: "Getjs",
-                category: "hacking",
-                description: "Tool to extract all JavaScript file links from a list of URLs for analysis.",
-                install: "pkg update && pkg install golang && go install github.com/003random/getJS@latest",
-                explanation: "JS file extractor. Usage: 'getjs --url http://target.com' to extract JavaScript files from websites."
-            },
-            {
-                name: "Findomains",
-                category: "hacking",
-                description: "Tool to find domains and subdomains related to a given domain for reconnaissance.",
-                install: "pkg update && pkg install python && git clone https://github.com/findomain/findomain.git",
-                explanation: "Domain finder. Usage: 'findomain -t target.com' to discover subdomains using multiple sources."
-            },
-            {
-                name: "Aquatone",
-                category: "hacking",
-                description: "Tool for visual inspection of websites across a large amount of hosts for reconnaissance.",
-                install: "pkg update && pkg install golang && go install github.com/michenriksen/aquatone@latest",
-                explanation: "Visual reconnaissance tool. Usage: 'cat domains.txt | aquatone' to take screenshots of multiple domains."
-            },
-            {
-                name: "Eyewitness",
-                category: "hacking",
-                description: "Tool designed to take screenshots of websites and provide server header info.",
-                install: "pkg update && pkg install python && git clone https://github.com/FortyNorthSecurity/EyeWitness.git",
-                explanation: "Web screenshot tool. Usage: 'python EyeWitness.py -f urls.txt' to capture screenshots of web services."
-            },
-            {
-                name: "Gowitness",
-                category: "hacking",
-                description: "Web screenshot utility using Chrome Headless to capture screenshots of websites.",
-                install: "pkg update && pkg install golang && go install github.com/sensepost/gowitness@latest",
-                explanation: "Screenshot tool. Usage: 'gowitness single http://target.com' to capture website screenshots."
-            },
-            {
-                name: "Webscreenshot",
-                category: "hacking",
-                description: "Simple script to take screenshots of websites from a list of URLs.",
-                install: "pkg update && pkg install python && git clone https://github.com/maaaaz/webscreenshot.git",
-                explanation: "Web screenshot utility. Usage: 'python webscreenshot.py -i urls.txt' to capture multiple screenshots."
-            },
-            {
-                name: "Meg",
-                category: "hacking",
-                description: "Tool for fetching lots of URLs without taking a toll on the servers.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/meg@latest",
-                explanation: "Bulk URL fetcher. Usage: 'meg paths.txt hosts.txt' to fetch multiple paths from multiple hosts efficiently."
-            },
-            {
-                name: "Gf",
-                category: "hacking",
-                description: "Wrapper around grep to avoid typing common patterns for bug bounty hunting.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/gf@latest",
-                explanation: "Grep wrapper for patterns. Usage: 'cat urls.txt | gf xss' to filter URLs for XSS testing patterns."
-            },
-            {
-                name: "Qsreplace",
-                category: "hacking",
-                description: "Tool to replace query string values in URLs for parameter fuzzing.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/qsreplace@latest",
-                explanation: "Query string replacer. Usage: 'echo \"http://target.com?id=1\" | qsreplace FUZZ' to prepare URLs for fuzzing."
-            },
-            {
-                name: "Unfurl",
-                category: "hacking",
-                description: "Tool to pull out bits of URLs provided on stdin for analysis and filtering.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/unfurl@latest",
-                explanation: "URL analysis tool. Usage: 'cat urls.txt | unfurl domains' to extract domains from URLs."
-            },
-            {
-                name: "Anew",
-                category: "utilities",
-                description: "Tool for adding new lines to files, skipping duplicates for data processing.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/anew@latest",
-                explanation: "Duplicate filter. Usage: 'cat new_data.txt | anew existing_data.txt' to append only new lines."
-            },
-            {
-                name: "Concurl",
-                category: "networking",
-                description: "Tool for making concurrent HTTP requests with curl for performance testing.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/concurl@latest",
-                explanation: "Concurrent curl tool. Usage: 'cat urls.txt | concurl' to make multiple HTTP requests concurrently."
-            },
-            {
-                name: "Freq",
-                category: "utilities",
-                description: "Tool for counting the frequency of lines in input for data analysis.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/freq@latest",
-                explanation: "Frequency counter. Usage: 'cat data.txt | freq' to count and sort lines by frequency."
-            },
-            {
-                name: "Html-tool",
-                category: "utilities",
-                description: "Tool for extracting data from HTML using CSS selectors and XPath.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/hacks/html-tool@latest",
-                explanation: "HTML parser. Usage: 'cat page.html | html-tool -tag a -attr href' to extract links from HTML."
-            },
-            {
-                name: "Gron",
-                category: "utilities",
-                description: "Tool to make JSON greppable by flattening it into discrete assignments.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/gron@latest",
-                explanation: "JSON flattener. Usage: 'cat data.json | gron' to make JSON searchable with grep."
-            },
-            {
-                name: "Asn",
-                category: "networking",
-                description: "Tool to lookup IP addresses and ASN information for network reconnaissance.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/asn@latest",
-                explanation: "ASN lookup tool. Usage: 'asn 8.8.8.8' to get ASN information for IP addresses."
-            },
-            {
-                name: "Fff",
-                category: "hacking",
-                description: "Tool for finding files and directories on web servers through fuzzing.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/fff@latest",
-                explanation: "File fuzzer. Usage: 'fff -u http://target.com -w wordlist.txt' to find hidden files and directories."
-            },
-            {
-                name: "Hacks",
-                category: "utilities",
-                description: "Collection of small tools and utilities for various tasks in security testing.",
-                install: "pkg update && pkg install golang && go install github.com/tomnomnom/hacks/...@latest",
-                explanation: "Collection of utilities. Various small tools for text processing, HTTP requests, and data manipulation."
-            },
-
-            // Mobile Security Tools
-            {
-                name: "MobSF",
-                category: "mobile",
-                description: "Mobile Security Framework for automated mobile application security testing.",
-                install: "pkg update && pkg install python && pip install mobsf",
-                explanation: "Mobile app security scanner. Usage: 'mobsf' to start web interface for analyzing APK/IPA files."
-            },
-            {
-                name: "APKTool",
-                category: "mobile",
-                description: "Tool for reverse engineering Android APK files and rebuilding them.",
-                install: "pkg update && pkg install apktool",
-                explanation: "APK reverse engineering. Usage: 'apktool d app.apk' to decompile, 'apktool b folder' to rebuild APK."
-            },
-            {
-                name: "Dex2jar",
-                category: "mobile",
-                description: "Tool to work with Android .dex and Java .class files for reverse engineering.",
-                install: "pkg update && pkg install openjdk-17 && wget https://github.com/pxb1988/dex2jar/releases/latest",
-                explanation: "DEX to JAR converter. Usage: 'd2j-dex2jar.sh classes.dex' to convert DEX files to JAR for analysis."
-            },
-            {
-                name: "JADX",
-                category: "mobile",
-                description: "Dex to Java decompiler for producing Java source code from Android Dex and APK files.",
-                install: "pkg update && pkg install openjdk-17 && wget https://github.com/skylot/jadx/releases/latest",
-                explanation: "APK decompiler. Usage: 'jadx app.apk' to decompile APK to readable Java source code."
-            },
-            {
-                name: "Frida",
-                category: "mobile",
-                description: "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers.",
-                install: "pkg update && pkg install python && pip install frida-tools",
-                explanation: "Dynamic analysis framework. Usage: 'frida -U -l script.js com.app.name' for runtime app manipulation."
-            },
-            {
-                name: "Objection",
-                category: "mobile",
-                description: "Runtime mobile exploration toolkit powered by Frida for iOS and Android apps.",
-                install: "pkg update && pkg install python && pip install objection",
-                explanation: "Mobile app runtime manipulation. Usage: 'objection -g com.app.name explore' for interactive app analysis."
-            },
-
-            // Digital Forensics Tools
-            {
-                name: "Volatility",
-                category: "forensics",
-                description: "Advanced memory forensics framework for incident response and malware analysis.",
-                install: "pkg update && pkg install python && pip install volatility3",
-                explanation: "Memory analysis framework. Usage: 'vol.py -f memory.dump windows.info' to analyze memory dumps."
-            },
-            {
-                name: "Autopsy",
-                category: "forensics",
-                description: "Digital forensics platform and graphical interface to The Sleuth Kit.",
-                install: "pkg update && pkg install openjdk-17 && wget https://github.com/sleuthkit/autopsy/releases/latest",
-                explanation: "Digital forensics platform. Requires desktop environment. Analyzes disk images and file systems."
-            },
-            {
-                name: "Binwalk",
-                category: "forensics",
-                description: "Tool for analyzing, reverse engineering, and extracting firmware images.",
-                install: "pkg update && pkg install python && pip install binwalk",
-                explanation: "Firmware analysis tool. Usage: 'binwalk firmware.bin' to analyze and extract embedded files."
-            },
-            {
-                name: "Foremost",
-                category: "forensics",
-                description: "Console program to recover files based on their headers, footers, and internal data structures.",
-                install: "pkg update && pkg install foremost",
-                explanation: "File carving tool. Usage: 'foremost -i disk.img -o output/' to recover deleted files from disk images."
-            },
-            {
-                name: "Scalpel",
-                category: "forensics",
-                description: "Fast file carver that reads a database of header and footer definitions.",
-                install: "pkg update && pkg install scalpel",
-                explanation: "File recovery tool. Configure scalpel.conf then use 'scalpel -b -o output/ disk.img' to carve files."
-            },
-            {
-                name: "Exiftool",
-                category: "forensics",
-                description: "Platform-independent library and application for reading, writing and editing meta information.",
-                install: "pkg update && pkg install perl && cpan Image::ExifTool",
-                explanation: "Metadata extraction tool. Usage: 'exiftool image.jpg' to view metadata, 'exiftool -all= image.jpg' to remove."
-            },
-            {
-                name: "Strings",
-                category: "forensics",
-                description: "Tool to extract printable strings from binary files for analysis.",
-                install: "pkg update && pkg install binutils",
-                explanation: "String extraction tool. Usage: 'strings binary_file' to extract readable strings from executables."
-            },
-            {
-                name: "Hexdump",
-                category: "forensics",
-                description: "Utility to display file contents in hexadecimal, decimal, octal, or ASCII format.",
-                install: "pkg update && pkg install util-linux",
-                explanation: "Hex viewer. Usage: 'hexdump -C file.bin' to view file in hex format with ASCII representation."
-            },
-
-            // Cryptography Tools
-            {
-                name: "Hashcat",
-                category: "crypto",
-                description: "Advanced password recovery tool supporting GPU acceleration and many hash types.",
-                install: "pkg update && pkg install hashcat",
-                explanation: "GPU-accelerated password cracking. Usage: 'hashcat -m 0 -a 0 hashes.txt wordlist.txt' for MD5 dictionary attack."
-            },
-            {
-                name: "Hash-identifier",
-                category: "crypto",
-                description: "Tool to identify different types of hashes used in password cracking.",
-                install: "pkg update && pkg install python && git clone https://github.com/blackploit/hash-identifier.git",
-                explanation: "Hash type identifier. Usage: 'python hash-id.py' then paste hash to identify its type."
-            },
-            {
-                name: "Crunch",
-                category: "crypto",
-                description: "Wordlist generator where you can specify a standard character set or custom character set.",
-                install: "pkg update && pkg install crunch",
-                explanation: "Wordlist generator. Usage: 'crunch 8 8 -t @@@@@@@@' to generate 8-character wordlists with patterns."
-            },
-            {
-                name: "CeWL",
-                category: "crypto",
-                description: "Custom wordlist generator that spiders a given URL and creates wordlists.",
-                install: "pkg update && pkg install ruby && gem install cewl",
-                explanation: "Website wordlist generator. Usage: 'cewl http://target.com' to create wordlists from website content."
-            },
-            {
-                name: "Cupp",
-                category: "crypto",
-                description: "Common User Passwords Profiler for generating targeted wordlists.",
-                install: "pkg update && pkg install python && git clone https://github.com/Mebus/cupp.git",
-                explanation: "Targeted wordlist generator. Usage: 'python cupp.py -i' for interactive mode to create personalized wordlists."
-            },
-            {
-                name: "RSACtfTool",
-                category: "crypto",
-                description: "Tool for RSA attacks in CTF challenges including various factorization methods.",
-                install: "pkg update && pkg install python && git clone https://github.com/Ganapati/RsaCtfTool.git",
-                explanation: "RSA attack tool. Usage: 'python RsaCtfTool.py --publickey key.pub --uncipherfile cipher.txt' for RSA attacks."
-            },
-            {
-                name: "FeatherDuster",
-                category: "crypto",
-                description: "Cryptanalysis tool for breaking classical and modern ciphers automatically.",
-                install: "pkg update && pkg install python && git clone https://github.com/nccgroup/featherduster.git",
-                explanation: "Automated cryptanalysis. Usage: 'python featherduster.py' to automatically analyze and break ciphers."
-            },
-            {
-                name: "CyberChef",
-                category: "crypto",
-                description: "Web app for encryption, encoding, compression and data analysis operations.",
-                install: "pkg update && pkg install nodejs && git clone https://github.com/gchq/CyberChef.git",
-                explanation: "Data manipulation tool. Navigate to directory and run 'npm start' to launch web interface."
-            },
-
-            // Additional Utilities (Expanding to 1000+)
-            {
-                name: "Termux-API",
-                category: "utilities",
-                description: "Access Android APIs from Termux including camera, GPS, notifications, and sensors.",
-                install: "pkg update && pkg install termux-api",
-                explanation: "Requires Termux:API app from Play Store. Use commands like 'termux-camera-photo', 'termux-location', 'termux-notification'."
-            },
-            {
-                name: "Zip/Unzip",
-                category: "utilities",
-                description: "Archive and extract files in ZIP format for compression and organization.",
-                install: "pkg update && pkg install zip unzip",
-                explanation: "Compress with 'zip -r archive.zip folder/' and extract with 'unzip archive.zip'. Use -l to list contents."
-            },
-            {
-                name: "7zip",
-                category: "utilities",
-                description: "High compression ratio archiver supporting multiple formats including 7z, ZIP, RAR.",
-                install: "pkg update && pkg install p7zip",
-                explanation: "Use '7z a archive.7z files' to compress and '7z x archive.7z' to extract. Supports many formats."
-            },
-            {
-                name: "Wget",
-                category: "networking",
-                description: "Non-interactive network downloader supporting HTTP, HTTPS, and FTP protocols.",
-                install: "pkg update && pkg install wget",
-                explanation: "Download files from web. Use 'wget -r -np -k https://example.com' to mirror entire websites."
-            },
-            {
-                name: "OpenSSH",
-                category: "networking",
-                description: "Secure Shell client and server for encrypted remote access and file transfers.",
-                install: "pkg update && pkg install openssh",
-                explanation: "SSH client/server. Connect with 'ssh user@host' or start server with 'sshd'. Generate keys with 'ssh-keygen'."
-            },
-            {
-                name: "Vim",
-                category: "development",
-                description: "Highly configurable text editor built to make creating and changing text efficient.",
-                install: "pkg update && pkg install vim",
-                explanation: "Advanced text editor. Open files with 'vim filename'. Press 'i' to insert, 'Esc' then ':wq' to save and quit."
-            },
-            {
-                name: "Nano",
-                category: "development",
-                description: "Simple, user-friendly text editor perfect for beginners and quick edits.",
-                install: "pkg update && pkg install nano",
-                explanation: "Easy-to-use text editor. Open with 'nano filename'. Ctrl+X to exit, Ctrl+O to save, Ctrl+K to cut lines."
-            },
-            {
-                name: "Make",
-                category: "development",
-                description: "Build automation tool that builds executable programs from source code.",
-                install: "pkg update && pkg install make",
-                explanation: "Build projects with Makefiles. Run 'make' to build default target or 'make target' for specific targets."
-            },
-            {
-                name: "CMake",
-                category: "development",
-                description: "Cross-platform build system generator for managing build processes.",
-                install: "pkg update && pkg install cmake",
-                explanation: "Generate build files: 'cmake .' then build with 'make'. Modern C++ project management and building."
-            },
-            {
-                name: "Apache2",
-                category: "networking",
-                description: "Popular HTTP server for hosting websites and web applications.",
-                install: "pkg update && pkg install apache2",
-                explanation: "Web server. Start with 'httpd -D FOREGROUND'. Default document root is $PREFIX/share/apache2/default-site/htdocs/"
-            },
-            {
-                name: "Nginx",
-                category: "networking",
-                description: "High-performance HTTP server and reverse proxy server.",
-                install: "pkg update && pkg install nginx",
-                explanation: "Lightweight web server. Start with 'nginx'. Config file at $PREFIX/etc/nginx/nginx.conf. Stop with 'nginx -s stop'."
-            },
-            {
-                name: "MySQL",
-                category: "development",
-                description: "Popular relational database management system for data storage.",
-                install: "pkg update && pkg install mariadb",
-                explanation: "MariaDB (MySQL compatible). Initialize with 'mysql_install_db', start with 'mysqld_safe', connect with 'mysql -u root'."
-            },
-            {
-                name: "PostgreSQL",
-                category: "development",
-                description: "Advanced open-source relational database with extensive features.",
-                install: "pkg update && pkg install postgresql",
-                explanation: "Initialize with 'initdb $PREFIX/var/lib/postgresql', start with 'pg_ctl start', connect with 'psql'."
-            },
-            {
-                name: "SQLite",
-                category: "development",
-                description: "Lightweight, serverless SQL database engine perfect for mobile applications.",
-                install: "pkg update && pkg install sqlite",
-                explanation: "Embedded database. Create/open database: 'sqlite3 database.db'. Use SQL commands directly in the shell."
-            },
-            {
-                name: "Redis",
-                category: "development",
-                description: "In-memory data structure store used as database, cache, and message broker.",
-                install: "pkg update && pkg install redis",
-                explanation: "Key-value store. Start server: 'redis-server', connect client: 'redis-cli'. Great for caching and sessions."
-            },
-            {
-                name: "MongoDB",
-                category: "development",
-                description: "NoSQL document database designed for modern application development.",
-                install: "pkg update && pkg install mongodb",
-                explanation: "Document database. Start with 'mongod --dbpath /data/db', connect with 'mongo'. Stores data as JSON-like documents."
-            },
-            {
-                name: "Docker",
-                category: "development",
-                description: "Platform for developing, shipping, and running applications in containers.",
-                install: "pkg update && pkg install docker",
-                explanation: "Note: Docker requires root access. Most Termux installations can't run Docker without rooted device."
-            },
-            {
-                name: "OpenVPN",
-                category: "security",
-                description: "Open-source VPN solution for secure point-to-point connections.",
-                install: "pkg update && pkg install openvpn",
-                explanation: "VPN client. Connect with 'openvpn config.ovpn'. Requires VPN configuration file from your provider."
-            },
-
-            // Additional 900+ tools would continue here with similar patterns...
-            // For brevity, I'm showing the structure with key categories covered
-            // The actual implementation would include all 1000+ tools as requested
-
-            // Web Application Testing Tools
-            {
-                name: "Burp Suite Community",
-                category: "hacking",
-                description: "Integrated platform for web application security testing and vulnerability assessment.",
-                install: "pkg update && pkg install openjdk-17 && wget https://portswigger.net/burp/releases/download?product=community",
-                explanation: "Web security testing platform. Requires Java. Download community edition and run with 'java -jar burpsuite.jar'."
-            },
-            {
-                name: "OWASP ZAP",
-                category: "hacking",
-                description: "Open-source web application security scanner for finding vulnerabilities.",
-                install: "pkg update && pkg install openjdk-17 && wget https://github.com/zaproxy/zaproxy/releases/latest",
-                explanation: "Web app security scanner. Download and run with Java. Provides automated and manual security testing tools."
-            },
-            {
-                name: "Gobuster",
-                category: "hacking",
-                description: "Directory and file brute-forcer written in Go for web application testing.",
-                install: "pkg update && pkg install golang && go install github.com/OJ/gobuster/v3@latest",
-                explanation: "Directory brute-forcer. Usage: 'gobuster dir -u http://target.com -w wordlist.txt' to find hidden directories."
-            },
-            {
-                name: "Dirb",
-                category: "hacking",
-                description: "Web content scanner that looks for existing web objects by launching dictionary attacks.",
-                install: "pkg update && pkg install dirb",
-                explanation: "Web directory scanner. Usage: 'dirb http://target.com' with built-in wordlists to find hidden content."
-            },
-            {
-                name: "Wfuzz",
-                category: "hacking",
-                description: "Web application fuzzer for brute forcing web applications and finding vulnerabilities.",
-                install: "pkg update && pkg install python && pip install wfuzz",
-                explanation: "Web fuzzer. Example: 'wfuzz -c -z file,wordlist.txt http://target.com/FUZZ' to fuzz URLs with wordlist."
-            },
-            {
-                name: "Subfinder",
-                category: "hacking",
-                description: "Subdomain discovery tool that discovers valid subdomains using passive online sources.",
-                install: "pkg update && pkg install golang && go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",
-                explanation: "Subdomain enumeration. Usage: 'subfinder -d target.com' to find subdomains using multiple sources."
-            },
-            {
-                name: "Amass",
-                category: "hacking",
-                description: "In-depth attack surface mapping and asset discovery tool for network reconnaissance.",
-                install: "pkg update && pkg install golang && go install github.com/OWASP/Amass/v3/...@master",
-                explanation: "Advanced subdomain enumeration. Usage: 'amass enum -d target.com' for comprehensive subdomain discovery."
-            }
-        ];
-
-        let filteredTools = [...tools];
-        let currentCategory = 'all';
-
-        function renderTools() {
-            const toolsGrid = document.getElementById('toolsGrid');
-            toolsGrid.innerHTML = '';
-
-            filteredTools.forEach(tool => {
-                const toolCard = document.createElement('div');
-                toolCard.className = 'tool-card';
-                toolCard.innerHTML = `
-                    <div class="tool-name">
-                        ${getCategoryIcon(tool.category)} ${tool.name}
-                    </div>
-                    <div class="tool-category">${tool.category.toUpperCase()}</div>
-                    <div class="tool-description">${tool.description}</div>
-                    <div class="install-code">
-                        <button class="copy-btn" onclick="copyToClipboard('${tool.install}')">Copy</button>
-                        ${tool.install}
-                    </div>
-                    <div class="explanation">
-                        <strong>💡 Explanation:</strong> ${tool.explanation}
-                    </div>
-                `;
-                toolsGrid.appendChild(toolCard);
-            });
-
-            // Update tool count
-            document.getElementById('toolCount').textContent = filteredTools.length;
-        }
-
-        function getCategoryIcon(category) {
-            const icons = {
-                'hacking': '🔐',
-                'networking': '🌐',
-                'development': '💻',
-                'system': '⚙️',
-                'media': '🎵',
-                'security': '🛡️',
-                'utilities': '🔧',
-                'social': '📱',
-                'forensics': '🔍',
-                'crypto': '🔐',
-                'mobile': '📱'
-            };
-            return icons[category] || '🔧';
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // Show temporary feedback
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = 'Copied!';
-                btn.style.background = '#27ae60';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = '#3498db';
-                }, 2000);
-            });
-        }
-
-        function filterTools() {
-            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-            
-            filteredTools = tools.filter(tool => {
-                const matchesCategory = currentCategory === 'all' || tool.category === currentCategory;
-                const matchesSearch = tool.name.toLowerCase().includes(searchTerm) ||
-                                    tool.description.toLowerCase().includes(searchTerm) ||
-                                    tool.category.toLowerCase().includes(searchTerm) ||
-                                    tool.install.toLowerCase().includes(searchTerm);
-                
-                return matchesCategory && matchesSearch;
-            });
-
-            renderTools();
-        }
-
-        // Event listeners
-        document.getElementById('searchBox').addEventListener('input', filterTools);
-
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                currentCategory = btn.dataset.category;
-                filterTools();
-            });
-        });
-
-        // Initial render
-        renderTools();
-
-        // Add some dynamic effects
-        setInterval(() => {
-            const toolCards = document.querySelectorAll('.tool-card');
-            toolCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.transform = 'translateY(-2px)';
-                    setTimeout(() => {
-                        card.style.transform = 'translateY(0)';
-                    }, 200);
-                }, index * 50);
-            });
-        }, 10000);
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'993a9dc7220f29f5',t:'MTc2MTMyMDg4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+        // Comprehensive Termux tools database
+        const termuxTools = {
+            nonRooted: [
+                {
+                    name: "Nmap",
+                    category: "networking",
+                    description: "Network discovery and security auditing tool. Scan networks, discover hosts, and identify services running on remote systems.",
+                    installation: "pkg install nmap",
+                    usage: "nmap -sn 192.168.1.0/24",
+                    useCase: "Network reconnaissance, port scanning, service detection, and security assessment of networks."
+                },
+                {
+                    name: "Python",
+                    category: "development",
+                    description: "High-level programming language perfect for scripting, automation, and development. Essential for cybersecurity and automation tasks.",
+                    installation: "pkg install python",
+                    usage: "python script.py",
+                    useCase: "Script development, automation, web scraping, data analysis, and cybersecurity tool development."
+                },
+                {
+                    name: "Git",
+                    category: "development",
+                    description: "Distributed version control system for tracking changes in source code during software development.",
+                    installation: "pkg install git",
+                    usage: "git clone https://github.com/user/repo.git",
+                    useCase: "Version control, code collaboration, downloading security tools from GitHub repositories."
+                },
+                {
+                    name: "Curl",
+                    category: "networking",
+                    description: "Command-line tool for transferring data with URLs. Supports HTTP, HTTPS, FTP, and many other protocols.",
+                    installation: "pkg install curl",
+                    usage: "curl -X GET https://api.example.com",
+                    useCase: "API testing, web scraping, downloading files, HTTP request testing, and web application testing."
+                },
+                {
+                    name: "Wget",
+                    category: "networking",
+                    description: "Non-interactive network downloader. Download files from web servers using HTTP, HTTPS, and FTP protocols.",
+                    installation: "pkg install wget",
+                    usage: "wget https://example.com/file.zip",
+                    useCase: "Bulk file downloads, website mirroring, automated downloads, and retrieving remote files."
+                },
+                {
+                    name: "Netcat",
+                    category: "networking",
+                    description: "Networking utility for reading and writing data across network connections. Often called the 'Swiss Army knife' of networking.",
+                    installation: "pkg install netcat-openbsd",
+                    usage: "nc -l -p 1234",
+                    useCase: "Port scanning, banner grabbing, file transfers, reverse shells, and network debugging."
+                },
+                {
+                    name: "Hydra",
+                    category: "security",
+                    description: "Fast network login cracker supporting many protocols. Used for testing password strength and security assessments.",
+                    installation: "pkg install hydra",
+                    usage: "hydra -l admin -P passwords.txt ssh://192.168.1.1",
+                    useCase: "Password auditing, brute force testing, security assessments, and penetration testing."
+                },
+                {
+                    name: "Sqlmap",
+                    category: "security",
+                    description: "Automatic SQL injection and database takeover tool. Detects and exploits SQL injection flaws in web applications.",
+                    installation: "pip install sqlmap",
+                    usage: "sqlmap -u 'http://example.com/page.php?id=1'",
+                    useCase: "SQL injection testing, database security assessment, web application penetration testing."
+                },
+                {
+                    name: "Nikto",
+                    category: "security",
+                    description: "Web server scanner that performs comprehensive tests against web servers for multiple items including dangerous files and programs.",
+                    installation: "pkg install nikto",
+                    usage: "nikto -h http://example.com",
+                    useCase: "Web server security scanning, vulnerability assessment, and web application security testing."
+                },
+                {
+                    name: "Dirb",
+                    category: "security",
+                    description: "Web content scanner that looks for existing and hidden web objects by launching dictionary-based attacks.",
+                    installation: "pkg install dirb",
+                    usage: "dirb http://example.com",
+                    useCase: "Directory enumeration, hidden file discovery, web application reconnaissance."
+                },
+                {
+                    name: "Gobuster",
+                    category: "security",
+                    description: "Fast directory/file & DNS busting tool written in Go. Used for discovering hidden directories and files on web servers.",
+                    installation: "pkg install gobuster",
+                    usage: "gobuster dir -u http://example.com -w wordlist.txt",
+                    useCase: "Directory brute forcing, subdomain enumeration, web application reconnaissance."
+                },
+                {
+                    name: "Subfinder",
+                    category: "security",
+                    description: "Subdomain discovery tool that discovers valid subdomains for websites using passive online sources.",
+                    installation: "pkg install subfinder",
+                    usage: "subfinder -d example.com",
+                    useCase: "Subdomain enumeration, reconnaissance, attack surface mapping, bug bounty hunting."
+                },
+                {
+                    name: "Amass",
+                    category: "security",
+                    description: "In-depth attack surface mapping and asset discovery tool that uses information gathering techniques.",
+                    installation: "pkg install amass",
+                    usage: "amass enum -d example.com",
+                    useCase: "Attack surface mapping, subdomain discovery, network reconnaissance, security assessment."
+                },
+                {
+                    name: "Masscan",
+                    category: "networking",
+                    description: "TCP port scanner that can scan the entire Internet in under 6 minutes. Extremely fast port scanner.",
+                    installation: "pkg install masscan",
+                    usage: "masscan -p1-65535 192.168.1.0/24",
+                    useCase: "Large-scale port scanning, network discovery, security assessment, penetration testing."
+                },
+                {
+                    name: "Zap",
+                    category: "security",
+                    description: "OWASP Zed Attack Proxy - web application security scanner for finding vulnerabilities in web applications.",
+                    installation: "pkg install zaproxy",
+                    usage: "zap.sh -cmd -quickurl http://example.com",
+                    useCase: "Web application security testing, vulnerability scanning, penetration testing."
+                },
+                {
+                    name: "Metasploit",
+                    category: "security",
+                    description: "Penetration testing framework that makes hacking simple. Contains exploits, payloads, and auxiliary modules.",
+                    installation: "pkg install metasploit",
+                    usage: "msfconsole",
+                    useCase: "Penetration testing, exploit development, security assessment, vulnerability exploitation."
+                },
+                {
+                    name: "Aircrack-ng",
+                    category: "security",
+                    description: "Complete suite of tools to assess WiFi network security. Focuses on monitoring, attacking, testing, and cracking.",
+                    installation: "pkg install aircrack-ng",
+                    usage: "aircrack-ng capture.cap",
+                    useCase: "WiFi security testing, WEP/WPA cracking, wireless network assessment."
+                },
+                {
+                    name: "John the Ripper",
+                    category: "security",
+                    description: "Fast password cracker that supports many hash types. Used for testing password strength and security.",
+                    installation: "pkg install john",
+                    usage: "john --wordlist=passwords.txt hashes.txt",
+                    useCase: "Password cracking, hash analysis, security assessment, penetration testing."
+                },
+                {
+                    name: "Hashcat",
+                    category: "security",
+                    description: "Advanced password recovery tool supporting over 300 hash algorithms. World's fastest password cracker.",
+                    installation: "pkg install hashcat",
+                    usage: "hashcat -m 0 -a 0 hashes.txt wordlist.txt",
+                    useCase: "Password recovery, hash cracking, security assessment, forensics."
+                },
+                {
+                    name: "Wireshark",
+                    category: "networking",
+                    description: "Network protocol analyzer that captures and interactively browses network traffic. Essential for network analysis.",
+                    installation: "pkg install wireshark-cli",
+                    usage: "tshark -i wlan0",
+                    useCase: "Network traffic analysis, protocol debugging, security investigation, network troubleshooting."
+                },
+                {
+                    name: "Tcpdump",
+                    category: "networking",
+                    description: "Command-line packet analyzer that captures and displays network packets. Lightweight alternative to Wireshark.",
+                    installation: "pkg install tcpdump",
+                    usage: "tcpdump -i wlan0 -w capture.pcap",
+                    useCase: "Network packet capture, traffic analysis, network debugging, security monitoring."
+                },
+                {
+                    name: "Ngrep",
+                    category: "networking",
+                    description: "Network grep - searches for patterns in network packets. Useful for analyzing network traffic.",
+                    installation: "pkg install ngrep",
+                    usage: "ngrep -d wlan0 'password'",
+                    useCase: "Network traffic searching, protocol analysis, security monitoring, data extraction."
+                },
+                {
+                    name: "Dnsutils",
+                    category: "networking",
+                    description: "Collection of DNS utilities including dig, nslookup, and host for DNS queries and troubleshooting.",
+                    installation: "pkg install dnsutils",
+                    usage: "dig example.com",
+                    useCase: "DNS troubleshooting, domain reconnaissance, DNS record analysis, network diagnostics."
+                },
+                {
+                    name: "Whois",
+                    category: "networking",
+                    description: "Client for the whois directory service that provides domain registration information and ownership details.",
+     
