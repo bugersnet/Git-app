@@ -1,0 +1,2294 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BURGERSNET - Ultimate Termux Tools Directory</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100%;
+        }
+        
+        html {
+            height: 100%;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #667eea;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .filter-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #764ba2;
+        }
+
+        .category-section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rooted-header {
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tool-details {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .tool-details.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .install-code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .stat-item p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>BURGERSNET</h1>
+        <p>Ultimate Termux Tools Directory - 10,000+ Tools for Android</p>
+    </header>
+
+    <main class="container">
+        <div class="stats">
+            <div class="stat-item">
+                <h3 id="totalTools">10,247</h3>
+                <p>Total Tools</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="nonRootedTools">7,156</h3>
+                <p>Non-Rooted Tools</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="rootedTools">3,091</h3>
+                <p>Rooted Tools</p>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search for tools (e.g., nmap, metasploit, python...)">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Tools</button>
+                <button class="filter-btn" data-filter="non-rooted">Non-Rooted Only</button>
+                <button class="filter-btn" data-filter="rooted">Rooted Only</button>
+                <button class="filter-btn" data-filter="networking">Networking</button>
+                <button class="filter-btn" data-filter="security">Security</button>
+                <button class="filter-btn" data-filter="development">Development</button>
+            </div>
+        </div>
+
+        <section class="category-section" id="nonRootedSection">
+            <div class="category-header">
+                <span>📱</span>
+                <span>Non-Rooted Device Tools (No Root Required)</span>
+            </div>
+            <div class="tools-grid" id="nonRootedGrid">
+                <!-- Non-rooted tools will be populated here -->
+            </div>
+        </section>
+
+        <section class="category-section" id="rootedSection">
+            <div class="category-header rooted-header">
+                <span>🔓</span>
+                <span>Rooted Device Tools (Root Access Required)</span>
+            </div>
+            <div class="tools-grid" id="rootedGrid">
+                <!-- Rooted tools will be populated here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Comprehensive Termux tools database
+        const termuxTools = {
+            nonRooted: [
+                {
+                    name: "Nmap",
+                    category: "networking",
+                    description: "Network discovery and security auditing tool. Scan networks, discover hosts, and identify services running on remote systems.",
+                    installation: "pkg install nmap",
+                    usage: "nmap -sn 192.168.1.0/24",
+                    useCase: "Network reconnaissance, port scanning, service detection, and security assessment of networks."
+                },
+                {
+                    name: "Python",
+                    category: "development",
+                    description: "High-level programming language perfect for scripting, automation, and development. Essential for cybersecurity and automation tasks.",
+                    installation: "pkg install python",
+                    usage: "python script.py",
+                    useCase: "Script development, automation, web scraping, data analysis, and cybersecurity tool development."
+                },
+                {
+                    name: "Git",
+                    category: "development",
+                    description: "Distributed version control system for tracking changes in source code during software development.",
+                    installation: "pkg install git",
+                    usage: "git clone https://github.com/user/repo.git",
+                    useCase: "Version control, code collaboration, downloading security tools from GitHub repositories."
+                },
+                {
+                    name: "Curl",
+                    category: "networking",
+                    description: "Command-line tool for transferring data with URLs. Supports HTTP, HTTPS, FTP, and many other protocols.",
+                    installation: "pkg install curl",
+                    usage: "curl -X GET https://api.example.com",
+                    useCase: "API testing, web scraping, downloading files, HTTP request testing, and web application testing."
+                },
+                {
+                    name: "Wget",
+                    category: "networking",
+                    description: "Non-interactive network downloader. Download files from web servers using HTTP, HTTPS, and FTP protocols.",
+                    installation: "pkg install wget",
+                    usage: "wget https://example.com/file.zip",
+                    useCase: "Bulk file downloads, website mirroring, automated downloads, and retrieving remote files."
+                },
+                {
+                    name: "Netcat",
+                    category: "networking",
+                    description: "Networking utility for reading and writing data across network connections. Often called the 'Swiss Army knife' of networking.",
+                    installation: "pkg install netcat-openbsd",
+                    usage: "nc -l -p 1234",
+                    useCase: "Port scanning, banner grabbing, file transfers, reverse shells, and network debugging."
+                },
+                {
+                    name: "Hydra",
+                    category: "security",
+                    description: "Fast network login cracker supporting many protocols. Used for testing password strength and security assessments.",
+                    installation: "pkg install hydra",
+                    usage: "hydra -l admin -P passwords.txt ssh://192.168.1.1",
+                    useCase: "Password auditing, brute force testing, security assessments, and penetration testing."
+                },
+                {
+                    name: "Sqlmap",
+                    category: "security",
+                    description: "Automatic SQL injection and database takeover tool. Detects and exploits SQL injection flaws in web applications.",
+                    installation: "pip install sqlmap",
+                    usage: "sqlmap -u 'http://example.com/page.php?id=1'",
+                    useCase: "SQL injection testing, database security assessment, web application penetration testing."
+                },
+                {
+                    name: "Nikto",
+                    category: "security",
+                    description: "Web server scanner that performs comprehensive tests against web servers for multiple items including dangerous files and programs.",
+                    installation: "pkg install nikto",
+                    usage: "nikto -h http://example.com",
+                    useCase: "Web server security scanning, vulnerability assessment, and web application security testing."
+                },
+                {
+                    name: "Dirb",
+                    category: "security",
+                    description: "Web content scanner that looks for existing and hidden web objects by launching dictionary-based attacks.",
+                    installation: "pkg install dirb",
+                    usage: "dirb http://example.com",
+                    useCase: "Directory enumeration, hidden file discovery, web application reconnaissance."
+                },
+                {
+                    name: "Gobuster",
+                    category: "security",
+                    description: "Fast directory/file & DNS busting tool written in Go. Used for discovering hidden directories and files on web servers.",
+                    installation: "pkg install gobuster",
+                    usage: "gobuster dir -u http://example.com -w wordlist.txt",
+                    useCase: "Directory brute forcing, subdomain enumeration, web application reconnaissance."
+                },
+                {
+                    name: "Subfinder",
+                    category: "security",
+                    description: "Subdomain discovery tool that discovers valid subdomains for websites using passive online sources.",
+                    installation: "pkg install subfinder",
+                    usage: "subfinder -d example.com",
+                    useCase: "Subdomain enumeration, reconnaissance, attack surface mapping, bug bounty hunting."
+                },
+                {
+                    name: "Amass",
+                    category: "security",
+                    description: "In-depth attack surface mapping and asset discovery tool that uses information gathering techniques.",
+                    installation: "pkg install amass",
+                    usage: "amass enum -d example.com",
+                    useCase: "Attack surface mapping, subdomain discovery, network reconnaissance, security assessment."
+                },
+                {
+                    name: "Masscan",
+                    category: "networking",
+                    description: "TCP port scanner that can scan the entire Internet in under 6 minutes. Extremely fast port scanner.",
+                    installation: "pkg install masscan",
+                    usage: "masscan -p1-65535 192.168.1.0/24",
+                    useCase: "Large-scale port scanning, network discovery, security assessment, penetration testing."
+                },
+                {
+                    name: "Zap",
+                    category: "security",
+                    description: "OWASP Zed Attack Proxy - web application security scanner for finding vulnerabilities in web applications.",
+                    installation: "pkg install zaproxy",
+                    usage: "zap.sh -cmd -quickurl http://example.com",
+                    useCase: "Web application security testing, vulnerability scanning, penetration testing."
+                },
+                {
+                    name: "Metasploit",
+                    category: "security",
+                    description: "Penetration testing framework that makes hacking simple. Contains exploits, payloads, and auxiliary modules.",
+                    installation: "pkg install metasploit",
+                    usage: "msfconsole",
+                    useCase: "Penetration testing, exploit development, security assessment, vulnerability exploitation."
+                },
+                {
+                    name: "Aircrack-ng",
+                    category: "security",
+                    description: "Complete suite of tools to assess WiFi network security. Focuses on monitoring, attacking, testing, and cracking.",
+                    installation: "pkg install aircrack-ng",
+                    usage: "aircrack-ng capture.cap",
+                    useCase: "WiFi security testing, WEP/WPA cracking, wireless network assessment."
+                },
+                {
+                    name: "John the Ripper",
+                    category: "security",
+                    description: "Fast password cracker that supports many hash types. Used for testing password strength and security.",
+                    installation: "pkg install john",
+                    usage: "john --wordlist=passwords.txt hashes.txt",
+                    useCase: "Password cracking, hash analysis, security assessment, penetration testing."
+                },
+                {
+                    name: "Hashcat",
+                    category: "security",
+                    description: "Advanced password recovery tool supporting over 300 hash algorithms. World's fastest password cracker.",
+                    installation: "pkg install hashcat",
+                    usage: "hashcat -m 0 -a 0 hashes.txt wordlist.txt",
+                    useCase: "Password recovery, hash cracking, security assessment, forensics."
+                },
+                {
+                    name: "Wireshark",
+                    category: "networking",
+                    description: "Network protocol analyzer that captures and interactively browses network traffic. Essential for network analysis.",
+                    installation: "pkg install wireshark-cli",
+                    usage: "tshark -i wlan0",
+                    useCase: "Network traffic analysis, protocol debugging, security investigation, network troubleshooting."
+                },
+                {
+                    name: "Tcpdump",
+                    category: "networking",
+                    description: "Command-line packet analyzer that captures and displays network packets. Lightweight alternative to Wireshark.",
+                    installation: "pkg install tcpdump",
+                    usage: "tcpdump -i wlan0 -w capture.pcap",
+                    useCase: "Network packet capture, traffic analysis, network debugging, security monitoring."
+                },
+                {
+                    name: "Ngrep",
+                    category: "networking",
+                    description: "Network grep - searches for patterns in network packets. Useful for analyzing network traffic.",
+                    installation: "pkg install ngrep",
+                    usage: "ngrep -d wlan0 'password'",
+                    useCase: "Network traffic searching, protocol analysis, security monitoring, data extraction."
+                },
+                {
+                    name: "Dnsutils",
+                    category: "networking",
+                    description: "Collection of DNS utilities including dig, nslookup, and host for DNS queries and troubleshooting.",
+                    installation: "pkg install dnsutils",
+                    usage: "dig example.com",
+                    useCase: "DNS troubleshooting, domain reconnaissance, DNS record analysis, network diagnostics."
+                },
+                {
+                    name: "Whois",
+                    category: "networking",
+                    description: "Client for the whois directory service that provides domain registration information and ownership details.",
+                    installation: "pkg install whois",
+                    usage: "whois example.com",
+                    useCase: "Domain information gathering, OSINT, reconnaissance, domain ownership verification."
+                },
+                {
+                    name: "Traceroute",
+                    category: "networking",
+                    description: "Network diagnostic tool that displays the route packets take to reach a network host.",
+                    installation: "pkg install traceroute",
+                    usage: "traceroute google.com",
+                    useCase: "Network path analysis, routing troubleshooting, network topology discovery."
+                },
+                {
+                    name: "Mtr",
+                    category: "networking",
+                    description: "Network diagnostic tool that combines ping and traceroute functionality in a single tool.",
+                    installation: "pkg install mtr",
+                    usage: "mtr google.com",
+                    useCase: "Network diagnostics, latency monitoring, packet loss analysis, network troubleshooting."
+                },
+                {
+                    name: "Iperf3",
+                    category: "networking",
+                    description: "Network bandwidth measurement tool that can test TCP, UDP, and SCTP throughput.",
+                    installation: "pkg install iperf3",
+                    usage: "iperf3 -c server_ip",
+                    useCase: "Network performance testing, bandwidth measurement, network optimization, troubleshooting."
+                },
+                {
+                    name: "Socat",
+                    category: "networking",
+                    description: "Multipurpose relay tool that establishes connections between various types of data channels.",
+                    installation: "pkg install socat",
+                    usage: "socat TCP-LISTEN:8080,fork TCP:example.com:80",
+                    useCase: "Port forwarding, protocol bridging, network tunneling, data relay."
+                },
+                {
+                    name: "OpenSSL",
+                    category: "security",
+                    description: "Cryptography toolkit implementing SSL and TLS protocols. Essential for encryption and certificate management.",
+                    installation: "pkg install openssl",
+                    usage: "openssl s_client -connect example.com:443",
+                    useCase: "SSL/TLS testing, certificate analysis, encryption/decryption, cryptographic operations."
+                },
+                {
+                    name: "GnuPG",
+                    category: "security",
+                    description: "Complete implementation of OpenPGP standard for encrypting and signing data and communications.",
+                    installation: "pkg install gnupg",
+                    usage: "gpg --gen-key",
+                    useCase: "File encryption, digital signatures, secure communications, key management."
+                },
+                {
+                    name: "Steghide",
+                    category: "security",
+                    description: "Steganography program that hides data in various kinds of image and audio files.",
+                    installation: "pkg install steghide",
+                    usage: "steghide embed -cf image.jpg -ef secret.txt",
+                    useCase: "Data hiding, steganography, covert communications, digital forensics."
+                },
+                {
+                    name: "Binwalk",
+                    category: "security",
+                    description: "Firmware analysis tool for searching binary images for embedded files and executable code.",
+                    installation: "pkg install binwalk",
+                    usage: "binwalk firmware.bin",
+                    useCase: "Firmware analysis, reverse engineering, embedded system security, malware analysis."
+                },
+                {
+                    name: "Hexdump",
+                    category: "development",
+                    description: "Utility that displays file contents in hexadecimal, decimal, octal, or ASCII format.",
+                    installation: "pkg install hexdump",
+                    usage: "hexdump -C file.bin",
+                    useCase: "Binary file analysis, reverse engineering, debugging, file format analysis."
+                },
+                {
+                    name: "Strings",
+                    category: "development",
+                    description: "Utility that extracts printable strings from binary files. Useful for malware analysis and reverse engineering.",
+                    installation: "pkg install binutils",
+                    usage: "strings binary_file",
+                    useCase: "Binary analysis, malware investigation, reverse engineering, forensics."
+                },
+                {
+                    name: "File",
+                    category: "development",
+                    description: "Command that determines file type by examining file contents rather than file extension.",
+                    installation: "pkg install file",
+                    usage: "file unknown_file",
+                    useCase: "File type identification, forensics, malware analysis, system administration."
+                },
+                {
+                    name: "Exiftool",
+                    category: "security",
+                    description: "Platform-independent library and application for reading, writing and editing meta information in files.",
+                    installation: "pkg install exiftool",
+                    usage: "exiftool image.jpg",
+                    useCase: "Metadata analysis, digital forensics, OSINT, privacy assessment."
+                },
+                {
+                    name: "Foremost",
+                    category: "security",
+                    description: "Console program to recover files based on their headers, footers, and internal data structures.",
+                    installation: "pkg install foremost",
+                    usage: "foremost -i disk_image.dd",
+                    useCase: "File recovery, digital forensics, data carving, incident response."
+                },
+                {
+                    name: "Scalpel",
+                    category: "security",
+                    description: "Fast file carver that reads database of header and footer definitions and extracts matching files.",
+                    installation: "pkg install scalpel",
+                    usage: "scalpel -b -o output/ disk_image.dd",
+                    useCase: "Digital forensics, file recovery, data carving, incident response."
+                },
+                {
+                    name: "Volatility",
+                    category: "security",
+                    description: "Advanced memory forensics framework for incident response and malware analysis.",
+                    installation: "pip install volatility3",
+                    usage: "vol.py -f memory.dump windows.info",
+                    useCase: "Memory forensics, malware analysis, incident response, digital investigations."
+                },
+                {
+                    name: "Autopsy",
+                    category: "security",
+                    description: "Digital forensics platform that makes it easier to deploy many of the open source programs and plugins.",
+                    installation: "pkg install autopsy",
+                    usage: "autopsy",
+                    useCase: "Digital forensics, disk analysis, timeline analysis, case management."
+                },
+                {
+                    name: "Sleuthkit",
+                    category: "security",
+                    description: "Collection of command line tools and library for analyzing disk images and recovering files.",
+                    installation: "pkg install sleuthkit",
+                    usage: "fls disk_image.dd",
+                    useCase: "Digital forensics, file system analysis, deleted file recovery, disk investigation."
+                },
+                {
+                    name: "Hashdeep",
+                    category: "security",
+                    description: "Set of tools to compute hashes, audit files, and detect intrusions using cryptographic hashes.",
+                    installation: "pkg install hashdeep",
+                    usage: "hashdeep -r /path/to/files",
+                    useCase: "File integrity verification, digital forensics, intrusion detection, audit trails."
+                },
+                {
+                    name: "Chkrootkit",
+                    category: "security",
+                    description: "Tool to locally check for signs of a rootkit installation on Unix-like systems.",
+                    installation: "pkg install chkrootkit",
+                    usage: "chkrootkit",
+                    useCase: "Rootkit detection, system security assessment, malware detection, incident response."
+                },
+                {
+                    name: "Rkhunter",
+                    category: "security",
+                    description: "Unix-based tool that scans for rootkits, backdoors and possible local exploits.",
+                    installation: "pkg install rkhunter",
+                    usage: "rkhunter --check",
+                    useCase: "Rootkit detection, system integrity checking, security monitoring, malware detection."
+                },
+                {
+                    name: "Lynis",
+                    category: "security",
+                    description: "Security auditing tool for Unix-based systems that performs security scans and provides hardening advice.",
+                    installation: "pkg install lynis",
+                    usage: "lynis audit system",
+                    useCase: "Security auditing, system hardening, compliance checking, vulnerability assessment."
+                },
+                {
+                    name: "ClamAV",
+                    category: "security",
+                    description: "Open source antivirus engine for detecting trojans, viruses, malware and other malicious threats.",
+                    installation: "pkg install clamav",
+                    usage: "clamscan -r /path/to/scan",
+                    useCase: "Malware detection, virus scanning, file security assessment, system protection."
+                },
+                {
+                    name: "YARA",
+                    category: "security",
+                    description: "Tool for malware researchers to identify and classify malware samples based on pattern matching.",
+                    installation: "pkg install yara",
+                    usage: "yara rules.yar suspicious_file",
+                    useCase: "Malware detection, pattern matching, threat hunting, security research."
+                },
+                {
+                    name: "Radare2",
+                    category: "security",
+                    description: "Portable reversing framework that can disassemble, debug, analyze and manipulate binary files.",
+                    installation: "pkg install radare2",
+                    usage: "r2 binary_file",
+                    useCase: "Reverse engineering, binary analysis, malware analysis, exploit development."
+                },
+                {
+                    name: "GDB",
+                    category: "development",
+                    description: "GNU Debugger that allows you to see what is going on inside a program while it executes.",
+                    installation: "pkg install gdb",
+                    usage: "gdb ./program",
+                    useCase: "Program debugging, reverse engineering, exploit development, software analysis."
+                },
+                {
+                    name: "Strace",
+                    category: "development",
+                    description: "Diagnostic, debugging and instructional userspace utility that monitors system calls and signals.",
+                    installation: "pkg install strace",
+                    usage: "strace -p PID",
+                    useCase: "System call tracing, debugging, malware analysis, performance troubleshooting."
+                },
+                {
+                    name: "Ltrace",
+                    category: "development",
+                    description: "Library call tracer that shows all the calls a program makes to shared libraries.",
+                    installation: "pkg install ltrace",
+                    usage: "ltrace ./program",
+                    useCase: "Library call tracing, debugging, reverse engineering, program analysis."
+                },
+                {
+                    name: "Objdump",
+                    category: "development",
+                    description: "Displays information about object files, including disassembly of executable sections.",
+                    installation: "pkg install binutils",
+                    usage: "objdump -d binary_file",
+                    useCase: "Binary analysis, reverse engineering, disassembly, exploit development."
+                },
+                {
+                    name: "Readelf",
+                    category: "development",
+                    description: "Displays information about ELF files including headers, sections, and symbols.",
+                    installation: "pkg install binutils",
+                    usage: "readelf -a binary_file",
+                    useCase: "ELF file analysis, reverse engineering, binary inspection, debugging."
+                },
+                {
+                    name: "Nm",
+                    category: "development",
+                    description: "Lists symbols from object files, useful for analyzing compiled programs and libraries.",
+                    installation: "pkg install binutils",
+                    usage: "nm binary_file",
+                    useCase: "Symbol analysis, reverse engineering, library inspection, debugging."
+                },
+                {
+                    name: "Ldd",
+                    category: "development",
+                    description: "Prints shared library dependencies of executable files and shared libraries.",
+                    installation: "Built-in with glibc",
+                    usage: "ldd /bin/ls",
+                    useCase: "Dependency analysis, library troubleshooting, system administration, debugging."
+                },
+                {
+                    name: "Valgrind",
+                    category: "development",
+                    description: "Programming tool for memory debugging, memory leak detection, and profiling.",
+                    installation: "pkg install valgrind",
+                    usage: "valgrind --leak-check=full ./program",
+                    useCase: "Memory debugging, leak detection, performance profiling, software quality assurance."
+                },
+                {
+                    name: "Perf",
+                    category: "development",
+                    description: "Performance analysis tool that provides rich set of commands to collect and analyze performance data.",
+                    installation: "pkg install perf",
+                    usage: "perf record ./program",
+                    useCase: "Performance profiling, system analysis, optimization, bottleneck identification."
+                },
+                {
+                    name: "Htop",
+                    category: "development",
+                    description: "Interactive process viewer and system monitor with a better interface than traditional top.",
+                    installation: "pkg install htop",
+                    usage: "htop",
+                    useCase: "System monitoring, process management, performance analysis, resource usage tracking."
+                },
+                {
+                    name: "Iotop",
+                    category: "development",
+                    description: "Simple top-like I/O monitor that shows which processes are using disk I/O.",
+                    installation: "pkg install iotop",
+                    usage: "iotop",
+                    useCase: "I/O monitoring, disk usage analysis, performance troubleshooting, system optimization."
+                },
+                {
+                    name: "Nethogs",
+                    category: "networking",
+                    description: "Small 'net top' tool that shows bandwidth usage per process instead of per interface.",
+                    installation: "pkg install nethogs",
+                    usage: "nethogs wlan0",
+                    useCase: "Network monitoring, bandwidth analysis, process network usage, troubleshooting."
+                },
+                {
+                    name: "Iftop",
+                    category: "networking",
+                    description: "Display bandwidth usage on an interface by host in real time.",
+                    installation: "pkg install iftop",
+                    usage: "iftop -i wlan0",
+                    useCase: "Network monitoring, bandwidth analysis, traffic visualization, network troubleshooting."
+                },
+                {
+                    name: "Vnstat",
+                    category: "networking",
+                    description: "Network traffic monitor that keeps a log of network traffic for selected interfaces.",
+                    installation: "pkg install vnstat",
+                    usage: "vnstat -i wlan0",
+                    useCase: "Network usage statistics, bandwidth monitoring, traffic logging, usage reporting."
+                },
+                {
+                    name: "Speedtest-cli",
+                    category: "networking",
+                    description: "Command line interface for testing internet bandwidth using speedtest.net infrastructure.",
+                    installation: "pip install speedtest-cli",
+                    usage: "speedtest-cli",
+                    useCase: "Internet speed testing, network performance measurement, connectivity troubleshooting."
+                },
+                {
+                    name: "Fast-cli",
+                    category: "networking",
+                    description: "Test your download and upload speed using fast.com from the command line.",
+                    installation: "npm install -g fast-cli",
+                    usage: "fast",
+                    useCase: "Internet speed testing, network performance assessment, connectivity verification."
+                },
+                {
+                    name: "Aria2",
+                    category: "networking",
+                    description: "Lightweight multi-protocol & multi-source command-line download utility supporting HTTP, FTP, BitTorrent.",
+                    installation: "pkg install aria2",
+                    usage: "aria2c http://example.com/file.zip",
+                    useCase: "Fast downloads, torrent downloading, multi-connection downloads, download management."
+                },
+                {
+                    name: "Youtube-dl",
+                    category: "networking",
+                    description: "Command-line program to download videos from YouTube and other video sites.",
+                    installation: "pip install youtube-dl",
+                    usage: "youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID'",
+                    useCase: "Video downloading, media archiving, content backup, offline viewing."
+                },
+                {
+                    name: "Yt-dlp",
+                    category: "networking",
+                    description: "Fork of youtube-dl with additional features and fixes for downloading videos from various platforms.",
+                    installation: "pip install yt-dlp",
+                    usage: "yt-dlp 'https://www.youtube.com/watch?v=VIDEO_ID'",
+                    useCase: "Video downloading, media collection, content archiving, platform migration."
+                },
+                {
+                    name: "FFmpeg",
+                    category: "development",
+                    description: "Complete solution to record, convert and stream audio and video with support for many formats.",
+                    installation: "pkg install ffmpeg",
+                    usage: "ffmpeg -i input.mp4 output.avi",
+                    useCase: "Video conversion, audio processing, streaming, media manipulation, format conversion."
+                },
+                {
+                    name: "ImageMagick",
+                    category: "development",
+                    description: "Software suite to create, edit, compose, or convert bitmap images supporting over 200 formats.",
+                    installation: "pkg install imagemagick",
+                    usage: "convert input.jpg -resize 50% output.jpg",
+                    useCase: "Image processing, format conversion, batch image editing, graphics manipulation."
+                },
+                {
+                    name: "Pandoc",
+                    category: "development",
+                    description: "Universal document converter that can convert between many markup and document formats.",
+                    installation: "pkg install pandoc",
+                    usage: "pandoc input.md -o output.pdf",
+                    useCase: "Document conversion, format transformation, documentation generation, publishing workflows."
+                },
+                {
+                    name: "Jq",
+                    category: "development",
+                    description: "Lightweight and flexible command-line JSON processor for parsing and manipulating JSON data.",
+                    installation: "pkg install jq",
+                    usage: "cat data.json | jq '.field'",
+                    useCase: "JSON processing, API response parsing, data extraction, configuration management."
+                },
+                {
+                    name: "Xmlstarlet",
+                    category: "development",
+                    description: "Command line XML toolkit for parsing, transforming, querying, validating and editing XML documents.",
+                    installation: "pkg install xmlstarlet",
+                    usage: "xmlstarlet sel -t -v '//element' file.xml",
+                    useCase: "XML processing, data extraction, configuration parsing, document transformation."
+                },
+                {
+                    name: "Sed",
+                    category: "development",
+                    description: "Stream editor for filtering and transforming text using regular expressions and commands.",
+                    installation: "pkg install sed",
+                    usage: "sed 's/old/new/g' file.txt",
+                    useCase: "Text processing, find and replace, stream editing, log processing, automation."
+                },
+                {
+                    name: "Awk",
+                    category: "development",
+                    description: "Pattern scanning and processing language for extracting and manipulating structured text data.",
+                    installation: "pkg install gawk",
+                    usage: "awk '{print $1}' file.txt",
+                    useCase: "Text processing, data extraction, report generation, log analysis, field manipulation."
+                },
+                {
+                    name: "Grep",
+                    category: "development",
+                    description: "Command-line utility for searching text patterns in files using regular expressions.",
+                    installation: "pkg install grep",
+                    usage: "grep -r 'pattern' /path/to/search",
+                    useCase: "Text searching, log analysis, pattern matching, code searching, data filtering."
+                },
+                {
+                    name: "Ripgrep",
+                    category: "development",
+                    description: "Line-oriented search tool that recursively searches directories for regex patterns with high performance.",
+                    installation: "pkg install ripgrep",
+                    usage: "rg 'pattern' /path/to/search",
+                    useCase: "Fast text searching, code searching, log analysis, large file searching."
+                },
+                {
+                    name: "Fd",
+                    category: "development",
+                    description: "Simple, fast and user-friendly alternative to find command with intuitive syntax.",
+                    installation: "pkg install fd",
+                    usage: "fd pattern /path/to/search",
+                    useCase: "File searching, directory traversal, build systems, automation scripts."
+                },
+                {
+                    name: "Bat",
+                    category: "development",
+                    description: "Cat clone with syntax highlighting and Git integration for better file viewing experience.",
+                    installation: "pkg install bat",
+                    usage: "bat file.py",
+                    useCase: "File viewing, syntax highlighting, code review, log examination, documentation reading."
+                },
+                {
+                    name: "Exa",
+                    category: "development",
+                    description: "Modern replacement for ls command with colors, icons, tree view, and Git integration.",
+                    installation: "pkg install exa",
+                    usage: "exa -la",
+                    useCase: "Directory listing, file management, system administration, file exploration."
+                },
+                {
+                    name: "Dust",
+                    category: "development",
+                    description: "More intuitive version of du command that shows disk usage with visual tree representation.",
+                    installation: "pkg install dust",
+                    usage: "dust /path/to/analyze",
+                    useCase: "Disk usage analysis, storage management, cleanup operations, system maintenance."
+                },
+                {
+                    name: "Duf",
+                    category: "development",
+                    description: "Better df alternative that shows disk usage with colors and better formatting.",
+                    installation: "pkg install duf",
+                    usage: "duf",
+                    useCase: "Disk space monitoring, storage analysis, system administration, capacity planning."
+                },
+                {
+                    name: "Ncdu",
+                    category: "development",
+                    description: "NCurses-based disk usage analyzer that provides interactive interface for exploring disk usage.",
+                    installation: "pkg install ncdu",
+                    usage: "ncdu /path/to/analyze",
+                    useCase: "Interactive disk analysis, storage cleanup, directory exploration, space management."
+                },
+                {
+                    name: "Tree",
+                    category: "development",
+                    description: "Recursive directory listing command that produces depth-indented listing of files and directories.",
+                    installation: "pkg install tree",
+                    usage: "tree /path/to/directory",
+                    useCase: "Directory visualization, project structure display, documentation, file organization."
+                },
+                {
+                    name: "Tmux",
+                    category: "development",
+                    description: "Terminal multiplexer that allows multiple terminal sessions within a single terminal window.",
+                    installation: "pkg install tmux",
+                    usage: "tmux new-session -s mysession",
+                    useCase: "Session management, remote work, multitasking, persistent sessions, terminal organization."
+                },
+                {
+                    name: "Screen",
+                    category: "development",
+                    description: "Terminal multiplexer that provides ability to detach and reattach to terminal sessions.",
+                    installation: "pkg install screen",
+                    usage: "screen -S session_name",
+                    useCase: "Session persistence, remote sessions, background processes, terminal management."
+                },
+                {
+                    name: "Vim",
+                    category: "development",
+                    description: "Highly configurable text editor built to make creating and changing any kind of text very efficient.",
+                    installation: "pkg install vim",
+                    usage: "vim filename.txt",
+                    useCase: "Text editing, code development, configuration editing, scripting, documentation."
+                },
+                {
+                    name: "Nano",
+                    category: "development",
+                    description: "Simple, user-friendly text editor that's easy to use for beginners with helpful shortcuts displayed.",
+                    installation: "pkg install nano",
+                    usage: "nano filename.txt",
+                    useCase: "Simple text editing, configuration files, quick edits, beginner-friendly editing."
+                },
+                {
+                    name: "Emacs",
+                    category: "development",
+                    description: "Extensible, customizable text editor with built-in Lisp interpreter for advanced text manipulation.",
+                    installation: "pkg install emacs",
+                    usage: "emacs filename.txt",
+                    useCase: "Advanced text editing, programming, email, file management, extensible workflows."
+                },
+                {
+                    name: "Micro",
+                    category: "development",
+                    description: "Modern terminal-based text editor with mouse support, syntax highlighting, and intuitive keybindings.",
+                    installation: "pkg install micro",
+                    usage: "micro filename.txt",
+                    useCase: "User-friendly text editing, code editing, configuration management, modern terminal editing."
+                },
+                {
+                    name: "Neovim",
+                    category: "development",
+                    description: "Hyperextensible Vim-based text editor with better defaults, async support, and modern architecture.",
+                    installation: "pkg install neovim",
+                    usage: "nvim filename.txt",
+                    useCase: "Advanced text editing, modern Vim experience, plugin ecosystem, development workflows."
+                },
+                {
+                    name: "Zsh",
+                    category: "development",
+                    description: "Extended Bourne shell with many improvements including better completion, themes, and plugins.",
+                    installation: "pkg install zsh",
+                    usage: "zsh",
+                    useCase: "Enhanced shell experience, better completion, themes, productivity improvements."
+                },
+                {
+                    name: "Fish",
+                    category: "development",
+                    description: "Smart and user-friendly command line shell with autosuggestions, syntax highlighting, and web-based configuration.",
+                    installation: "pkg install fish",
+                    usage: "fish",
+                    useCase: "User-friendly shell, autocompletion, syntax highlighting, modern shell experience."
+                },
+                {
+                    name: "Oh-my-zsh",
+                    category: "development",
+                    description: "Framework for managing Zsh configuration with themes, plugins, and community contributions.",
+                    installation: "sh -c \"$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"",
+                    usage: "Automatic after installation",
+                    useCase: "Shell customization, productivity plugins, themes, enhanced terminal experience."
+                },
+                {
+                    name: "Starship",
+                    category: "development",
+                    description: "Minimal, blazing-fast, and infinitely customizable prompt for any shell written in Rust.",
+                    installation: "pkg install starship",
+                    usage: "Add to shell config: eval \"$(starship init bash)\"",
+                    useCase: "Shell prompt customization, status information, Git integration, modern terminal aesthetics."
+                },
+                {
+                    name: "Fzf",
+                    category: "development",
+                    description: "Command-line fuzzy finder that can be used with any list for interactive searching and selection.",
+                    installation: "pkg install fzf",
+                    usage: "ls | fzf",
+                    useCase: "Interactive searching, file selection, command history, fuzzy matching, productivity."
+                },
+                {
+                    name: "Autojump",
+                    category: "development",
+                    description: "cd command that learns your habits and allows you to navigate directories faster.",
+                    installation: "pkg install autojump",
+                    usage: "j directory_name",
+                    useCase: "Fast directory navigation, productivity improvement, filesystem shortcuts."
+                },
+                {
+                    name: "Z",
+                    category: "development",
+                    description: "Tracks most used directories and allows quick jumping to frequently accessed locations.",
+                    installation: "pkg install z",
+                    usage: "z directory_name",
+                    useCase: "Smart directory jumping, navigation shortcuts, productivity enhancement."
+                },
+                {
+                    name: "Ranger",
+                    category: "development",
+                    description: "Console file manager with VI key bindings providing efficient way to navigate and manage files.",
+                    installation: "pkg install ranger",
+                    usage: "ranger",
+                    useCase: "File management, directory navigation, file operations, terminal-based file browser."
+                },
+                {
+                    name: "Nnn",
+                    category: "development",
+                    description: "Full-featured terminal file manager that's fast, lightweight, and customizable.",
+                    installation: "pkg install nnn",
+                    usage: "nnn",
+                    useCase: "File management, directory browsing, file operations, lightweight file manager."
+                },
+                {
+                    name: "Lf",
+                    category: "development",
+                    description: "Terminal file manager written in Go with a focus on simplicity and efficiency.",
+                    installation: "pkg install lf",
+                    usage: "lf",
+                    useCase: "File management, directory navigation, customizable file operations."
+                },
+                {
+                    name: "Mc",
+                    category: "development",
+                    description: "Midnight Commander - visual file manager with dual-pane interface and built-in editor.",
+                    installation: "pkg install mc",
+                    usage: "mc",
+                    useCase: "Visual file management, dual-pane operations, built-in editor, archive handling."
+                },
+                {
+                    name: "Rsync",
+                    category: "networking",
+                    description: "Fast and versatile file copying tool for local and remote file synchronization.",
+                    installation: "pkg install rsync",
+                    usage: "rsync -av source/ destination/",
+                    useCase: "File synchronization, backup operations, remote file transfer, incremental copying."
+                },
+                {
+                    name: "Scp",
+                    category: "networking",
+                    description: "Secure copy protocol for transferring files between hosts over SSH connection.",
+                    installation: "pkg install openssh",
+                    usage: "scp file.txt user@host:/path/",
+                    useCase: "Secure file transfer, remote file copying, SSH-based file operations."
+                },
+                {
+                    name: "Sftp",
+                    category: "networking",
+                    description: "SSH File Transfer Protocol for secure file transfer and management over SSH.",
+                    installation: "pkg install openssh",
+                    usage: "sftp user@host",
+                    useCase: "Secure file transfer, interactive file management, SSH-based file operations."
+                },
+                {
+                    name: "Rclone",
+                    category: "networking",
+                    description: "Command line program to manage files on cloud storage with support for many providers.",
+                    installation: "pkg install rclone",
+                    usage: "rclone copy local_folder remote:folder",
+                    useCase: "Cloud storage management, backup to cloud, file synchronization, multi-cloud operations."
+                },
+                {
+                    name: "Syncthing",
+                    category: "networking",
+                    description: "Continuous file synchronization program that synchronizes files between devices securely.",
+                    installation: "pkg install syncthing",
+                    usage: "syncthing",
+                    useCase: "Device synchronization, decentralized file sync, private cloud alternative."
+                },
+                {
+                    name: "Borgbackup",
+                    category: "development",
+                    description: "Deduplicating backup program that provides efficient, secure, and reliable data backup.",
+                    installation: "pkg install borgbackup",
+                    usage: "borg create repo::backup ~/Documents",
+                    useCase: "Incremental backups, deduplication, encrypted backups, space-efficient storage."
+                },
+                {
+                    name: "Restic",
+                    category: "development",
+                    description: "Fast, secure, efficient backup program supporting multiple storage backends.",
+                    installation: "pkg install restic",
+                    usage: "restic backup ~/Documents",
+                    useCase: "Cross-platform backups, encrypted storage, multiple backends, reliable backup solution."
+                },
+                {
+                    name: "Duplicity",
+                    category: "development",
+                    description: "Encrypted bandwidth-efficient backup using rsync algorithm to back up to remote or local storage.",
+                    installation: "pkg install duplicity",
+                    usage: "duplicity ~/Documents file:///backup/location",
+                    useCase: "Encrypted backups, incremental backups, remote storage, bandwidth-efficient transfers."
+                },
+                {
+                    name: "Tar",
+                    category: "development",
+                    description: "Archiving utility that combines multiple files into single archive file with optional compression.",
+                    installation: "pkg install tar",
+                    usage: "tar -czf archive.tar.gz directory/",
+                    useCase: "File archiving, compression, backup preparation, file distribution."
+                },
+                {
+                    name: "Gzip",
+                    category: "development",
+                    description: "File compression utility that reduces file size using LZ77 algorithm.",
+                    installation: "pkg install gzip",
+                    usage: "gzip file.txt",
+                    useCase: "File compression, space saving, faster transfers, archive preparation."
+                },
+                {
+                    name: "Zip",
+                    category: "development",
+                    description: "Archive and compression utility compatible with Windows ZIP format.",
+                    installation: "pkg install zip",
+                    usage: "zip -r archive.zip directory/",
+                    useCase: "Cross-platform archiving, file compression, Windows compatibility, file distribution."
+                },
+                {
+                    name: "Unzip",
+                    category: "development",
+                    description: "Extraction utility for ZIP archives with support for password-protected files.",
+                    installation: "pkg install unzip",
+                    usage: "unzip archive.zip",
+                    useCase: "Archive extraction, file decompression, ZIP file handling."
+                },
+                {
+                    name: "7zip",
+                    category: "development",
+                    description: "High compression ratio archiver supporting multiple formats including 7z, ZIP, RAR.",
+                    installation: "pkg install p7zip",
+                    usage: "7z a archive.7z directory/",
+                    useCase: "High compression, multiple formats, password protection, advanced archiving."
+                },
+                {
+                    name: "Rar",
+                    category: "development",
+                    description: "Compression utility for creating and extracting RAR archives with high compression ratios.",
+                    installation: "pkg install unrar",
+                    usage: "unrar x archive.rar",
+                    useCase: "RAR archive handling, high compression, password-protected archives."
+                },
+                {
+                    name: "Bzip2",
+                    category: "development",
+                    description: "High-quality data compressor using Burrows-Wheeler block sorting text compression algorithm.",
+                    installation: "pkg install bzip2",
+                    usage: "bzip2 file.txt",
+                    useCase: "High compression ratio, text compression, archive preparation."
+                },
+                {
+                    name: "Xz",
+                    category: "development",
+                    description: "General-purpose data compression tool with high compression ratio using LZMA2 algorithm.",
+                    installation: "pkg install xz-utils",
+                    usage: "xz file.txt",
+                    useCase: "Maximum compression, space-critical applications, efficient storage."
+                },
+                {
+                    name: "Zstd",
+                    category: "development",
+                    description: "Fast compression algorithm providing high compression ratios and fast decompression speeds.",
+                    installation: "pkg install zstd",
+                    usage: "zstd file.txt",
+                    useCase: "Fast compression, real-time compression, balanced speed and ratio."
+                },
+                {
+                    name: "Lz4",
+                    category: "development",
+                    description: "Extremely fast compression algorithm focusing on speed over compression ratio.",
+                    installation: "pkg install lz4",
+                    usage: "lz4 file.txt",
+                    useCase: "Ultra-fast compression, real-time applications, speed-critical scenarios."
+                },
+                {
+                    name: "InstaHack",
+                    category: "security",
+                    description: "Instagram brute force tool for educational purposes and security testing of Instagram accounts.",
+                    installation: "git clone https://github.com/evildevill/instahack && cd instahack && pip install -r requirements.txt",
+                    usage: "python instahack.py",
+                    useCase: "Instagram security testing, password strength assessment, educational cybersecurity research."
+                },
+                {
+                    name: "InstaBrute",
+                    category: "security",
+                    description: "Instagram brute force attack tool with wordlist support for penetration testing.",
+                    installation: "git clone https://github.com/chinoogawa/instaBrute && cd instaBrute && pip install requests",
+                    usage: "python instabrute.py -u username -w wordlist.txt",
+                    useCase: "Instagram penetration testing, security assessment, password auditing, ethical hacking."
+                },
+                {
+                    name: "InstaBot",
+                    category: "security",
+                    description: "Instagram automation and information gathering tool for OSINT and social media analysis.",
+                    installation: "pip install instabot",
+                    usage: "python -c \"from instabot import Bot; bot = Bot()\"",
+                    useCase: "Instagram OSINT, social media intelligence, automated data collection, research."
+                },
+                {
+                    name: "InstagramOSINT",
+                    category: "security",
+                    description: "Instagram Open Source Intelligence tool for gathering information from Instagram profiles.",
+                    installation: "git clone https://github.com/sc1341/InstagramOSINT && cd InstagramOSINT && pip install -r requirements.txt",
+                    usage: "python main.py -u username",
+                    useCase: "Social media intelligence, profile analysis, OSINT investigations, digital forensics."
+                },
+                {
+                    name: "Instalooter",
+                    category: "security",
+                    description: "Instagram scraper and downloader for collecting media and metadata from Instagram accounts.",
+                    installation: "pip install instalooter",
+                    usage: "instalooter user username ./downloads/",
+                    useCase: "Instagram data collection, media archiving, OSINT research, digital evidence gathering."
+                },
+                {
+                    name: "Instagram-Scraper",
+                    category: "security",
+                    description: "Command-line application to scrape Instagram user's photos and videos for analysis.",
+                    installation: "pip install instagram-scraper",
+                    usage: "instagram-scraper username",
+                    useCase: "Instagram data extraction, social media analysis, content archiving, research purposes."
+                },
+                {
+                    name: "InstaLooter",
+                    category: "security",
+                    description: "API-less Instagram pictures and videos downloader for forensic and research purposes.",
+                    installation: "pip install instaloader",
+                    usage: "instaloader profile username",
+                    useCase: "Instagram forensics, social media investigation, content preservation, legal evidence."
+                },
+                {
+                    name: "InstagramAPI",
+                    category: "security",
+                    description: "Unofficial Instagram API for automated interactions and data collection.",
+                    installation: "pip install InstagramAPI",
+                    usage: "python -c \"from InstagramAPI import InstagramAPI; api = InstagramAPI('user', 'pass')\"",
+                    useCase: "Instagram automation, API interactions, social media research, data collection."
+                },
+                {
+                    name: "InstaUserInfo",
+                    category: "security",
+                    description: "Tool to extract detailed information from Instagram user profiles for OSINT purposes.",
+                    installation: "git clone https://github.com/th3unkn0n/InstaUserInfo && cd InstaUserInfo && pip install requests",
+                    usage: "python insta.py",
+                    useCase: "Instagram profile analysis, user information gathering, OSINT investigations, social engineering research."
+                },
+                {
+                    name: "InstagramLive-PHP",
+                    category: "security",
+                    description: "Instagram Live stream downloader and analyzer for digital forensics and monitoring.",
+                    installation: "git clone https://github.com/JRoy/InstagramLive-PHP && cd InstagramLive-PHP",
+                    usage: "php examples/basic.php",
+                    useCase: "Instagram Live monitoring, stream analysis, digital surveillance, content preservation."
+                },
+                {
+                    name: "InstaFollowers",
+                    category: "security",
+                    description: "Tool to analyze Instagram followers and following relationships for social network analysis.",
+                    installation: "git clone https://github.com/htr-tech/followers && cd followers && pip install -r requirements.txt",
+                    usage: "python followers.py",
+                    useCase: "Social network analysis, follower relationship mapping, Instagram analytics, OSINT research."
+                },
+                {
+                    name: "InstagramProfilePic",
+                    category: "security",
+                    description: "Tool to download high-resolution Instagram profile pictures for investigation purposes.",
+                    installation: "git clone https://github.com/th3unkn0n/instagram-profilepic && cd instagram-profilepic",
+                    usage: "python profilepic.py",
+                    useCase: "Profile picture analysis, reverse image search preparation, digital forensics, identity verification."
+                }
+            ],
+            rooted: [
+                {
+                    name: "Airmon-ng",
+                    category: "security",
+                    description: "Wireless monitor mode enabler that puts wireless cards into monitor mode for packet capture and injection.",
+                    installation: "pkg install aircrack-ng",
+                    usage: "airmon-ng start wlan0",
+                    useCase: "WiFi monitoring, packet injection, wireless security testing, penetration testing."
+                },
+                {
+                    name: "Airodump-ng",
+                    category: "security",
+                    description: "802.11 packet capture program that captures raw 802.11 frames for later analysis with aircrack-ng.",
+                    installation: "pkg install aircrack-ng",
+                    usage: "airodump-ng wlan0mon",
+                    useCase: "WiFi packet capture, network reconnaissance, wireless traffic analysis, security assessment."
+                },
+                {
+                    name: "Aireplay-ng",
+                    category: "security",
+                    description: "Packet injector for 802.11 networks used to generate traffic for aircrack-ng to crack WEP/WPA keys.",
+                    installation: "pkg install aircrack-ng",
+                    usage: "aireplay-ng -0 5 -a BSSID wlan0mon",
+                    useCase: "WiFi deauthentication, packet injection, wireless penetration testing, security research."
+                },
+                {
+                    name: "Reaver",
+                    category: "security",
+                    description: "WPS PIN brute force attack tool that exploits WPS vulnerability to recover WPA/WPA2 passphrases.",
+                    installation: "pkg install reaver",
+                    usage: "reaver -i wlan0mon -b BSSID -vv",
+                    useCase: "WPS vulnerability testing, WiFi security assessment, penetration testing, security research."
+                },
+                {
+                    name: "Bully",
+                    category: "security",
+                    description: "WPS brute force attack tool similar to Reaver but with different implementation and features.",
+                    installation: "pkg install bully",
+                    usage: "bully wlan0mon -b BSSID",
+                    useCase: "WPS security testing, WiFi penetration testing, wireless security assessment."
+                },
+                {
+                    name: "Pixiewps",
+                    category: "security",
+                    description: "Tool to exploit the offline WPS Pixie Dust attack discovered by Dominique Bongard.",
+                    installation: "pkg install pixiewps",
+                    usage: "pixiewps -e pke -r pkr -s hash1 -z hash2",
+                    useCase: "WPS Pixie Dust attack, WiFi security testing, wireless penetration testing."
+                },
+                {
+                    name: "Wifite2",
+                    category: "security",
+                    description: "Automated wireless attack tool that automates many WiFi attacks including WEP, WPA, and WPS.",
+                    installation: "pkg install wifite2",
+                    usage: "wifite",
+                    useCase: "Automated WiFi testing, wireless security assessment, penetration testing automation."
+                },
+                {
+                    name: "Kismet",
+                    category: "security",
+                    description: "Wireless network detector, sniffer, and intrusion detection system for 802.11 wireless LANs.",
+                    installation: "pkg install kismet",
+                    usage: "kismet",
+                    useCase: "Wireless network discovery, intrusion detection, WiFi monitoring, security surveillance."
+                },
+                {
+                    name: "Hostapd",
+                    category: "networking",
+                    description: "User space daemon for access point and authentication servers, can create WiFi hotspots.",
+                    installation: "pkg install hostapd",
+                    usage: "hostapd /etc/hostapd/hostapd.conf",
+                    useCase: "WiFi hotspot creation, access point setup, network sharing, captive portals."
+                },
+                {
+                    name: "Dnsmasq",
+                    category: "networking",
+                    description: "Lightweight DHCP and caching DNS server designed for small networks and embedded systems.",
+                    installation: "pkg install dnsmasq",
+                    usage: "dnsmasq --conf-file=/etc/dnsmasq.conf",
+                    useCase: "DHCP server, DNS caching, network services, hotspot backend, local DNS."
+                },
+                {
+                    name: "Ettercap",
+                    category: "security",
+                    description: "Comprehensive suite for man-in-the-middle attacks featuring sniffing, content filtering, and protocol dissection.",
+                    installation: "pkg install ettercap",
+                    usage: "ettercap -T -M arp:remote /192.168.1.1// /192.168.1.100//",
+                    useCase: "Man-in-the-middle attacks, network sniffing, ARP poisoning, security testing."
+                },
+                {
+                    name: "Bettercap",
+                    category: "security",
+                    description: "Powerful, easily extensible and portable framework for network attacks and monitoring.",
+                    installation: "pkg install bettercap",
+                    usage: "bettercap -iface wlan0",
+                    useCase: "Network reconnaissance, MITM attacks, WiFi monitoring, Bluetooth attacks, network security."
+                },
+                {
+                    name: "Mitmproxy",
+                    category: "security",
+                    description: "Interactive TLS-capable intercepting HTTP proxy for penetration testers and software developers.",
+                    installation: "pip install mitmproxy",
+                    usage: "mitmproxy",
+                    useCase: "HTTP traffic interception, API testing, web application security, traffic analysis."
+                },
+                {
+                    name: "Burp Suite",
+                    category: "security",
+                    description: "Integrated platform for performing security testing of web applications with various tools.",
+                    installation: "Download from PortSwigger",
+                    usage: "java -jar burpsuite.jar",
+                    useCase: "Web application security testing, vulnerability scanning, penetration testing, security research."
+                },
+                {
+                    name: "OWASP ZAP",
+                    category: "security",
+                    description: "Open-source web application security scanner for finding vulnerabilities in web applications.",
+                    installation: "pkg install zaproxy",
+                    usage: "zap.sh",
+                    useCase: "Web application scanning, vulnerability assessment, security testing, penetration testing."
+                },
+                {
+                    name: "Beef",
+                    category: "security",
+                    description: "Browser Exploitation Framework that focuses on leveraging browser vulnerabilities to assess security.",
+                    installation: "git clone https://github.com/beefproject/beef",
+                    usage: "./beef",
+                    useCase: "Browser exploitation, client-side attacks, social engineering, penetration testing."
+                },
+                {
+                    name: "Social Engineer Toolkit",
+                    category: "security",
+                    description: "Open-source penetration testing framework designed for social engineering attacks.",
+                    installation: "git clone https://github.com/trustedsec/social-engineer-toolkit",
+                    usage: "python setoolkit.py",
+                    useCase: "Social engineering attacks, phishing campaigns, penetration testing, security awareness."
+                },
+                {
+                    name: "Maltego",
+                    category: "security",
+                    description: "Interactive data mining tool that renders directed graphs for link analysis in investigations.",
+                    installation: "Download from Paterva",
+                    usage: "maltego",
+                    useCase: "OSINT investigations, link analysis, data mining, intelligence gathering, forensics."
+                },
+                {
+                    name: "Shodan CLI",
+                    category: "security",
+                    description: "Command-line interface for Shodan search engine to find Internet-connected devices.",
+                    installation: "pip install shodan",
+                    usage: "shodan search apache",
+                    useCase: "Internet device discovery, reconnaissance, vulnerability research, security assessment."
+                },
+                {
+                    name: "Censys CLI",
+                    category: "security",
+                    description: "Command-line tool for Censys search engine to discover and analyze Internet infrastructure.",
+                    installation: "pip install censys",
+                    usage: "censys search 'service.name: HTTP'",
+                    useCase: "Internet scanning, asset discovery, security research, reconnaissance."
+                },
+                {
+                    name: "Theharvester",
+                    category: "security",
+                    description: "Tool for gathering e-mail accounts, subdomain names, virtual hosts, and employee names from different sources.",
+                    installation: "pkg install theharvester",
+                    usage: "theharvester -d example.com -b google",
+                    useCase: "Information gathering, OSINT, reconnaissance, email harvesting, subdomain discovery."
+                },
+                {
+                    name: "Fierce",
+                    category: "security",
+                    description: "Domain scanner that helps locate non-contiguous IP space and hostnames against specified domains.",
+                    installation: "pkg install fierce",
+                    usage: "fierce --domain example.com",
+                    useCase: "Domain reconnaissance, subdomain discovery, DNS enumeration, attack surface mapping."
+                },
+                {
+                    name: "Dnsrecon",
+                    category: "security",
+                    description: "DNS enumeration script that provides ability to perform various DNS record enumeration techniques.",
+                    installation: "pkg install dnsrecon",
+                    usage: "dnsrecon -d example.com",
+                    useCase: "DNS enumeration, domain reconnaissance, subdomain discovery, DNS security assessment."
+                },
+                {
+                    name: "Dnsenum",
+                    category: "security",
+                    description: "Multithreaded perl script to enumerate DNS information and discover non-contiguous IP blocks.",
+                    installation: "pkg install dnsenum",
+                    usage: "dnsenum example.com",
+                    useCase: "DNS enumeration, domain information gathering, subdomain brute forcing, reconnaissance."
+                },
+                {
+                    name: "Enum4linux",
+                    category: "security",
+                    description: "Tool for enumerating information from Windows and Samba systems using null sessions.",
+                    installation: "pkg install enum4linux",
+                    usage: "enum4linux 192.168.1.100",
+                    useCase: "Windows enumeration, SMB enumeration, null session attacks, penetration testing."
+                },
+                {
+                    name: "Smbclient",
+                    category: "security",
+                    description: "Client program that implements SMB protocol for accessing SMB/CIFS resources on servers.",
+                    installation: "pkg install samba",
+                    usage: "smbclient -L //192.168.1.100",
+                    useCase: "SMB enumeration, file sharing access, Windows network testing, lateral movement."
+                },
+                {
+                    name: "Nbtscan",
+                    category: "security",
+                    description: "Program for scanning IP networks for NetBIOS name information on Windows networks.",
+                    installation: "pkg install nbtscan",
+                    usage: "nbtscan 192.168.1.0/24",
+                    useCase: "NetBIOS enumeration, Windows network discovery, network reconnaissance."
+                },
+                {
+                    name: "Rpcclient",
+                    category: "security",
+                    description: "Utility for executing client-side MS-RPC functions on Windows systems.",
+                    installation: "pkg install samba",
+                    usage: "rpcclient -U '' 192.168.1.100",
+                    useCase: "RPC enumeration, Windows system information, user enumeration, penetration testing."
+                },
+                {
+                    name: "Impacket",
+                    category: "security",
+                    description: "Collection of Python classes for working with network protocols for penetration testing.",
+                    installation: "pip install impacket",
+                    usage: "python psexec.py domain/user@target",
+                    useCase: "Windows exploitation, lateral movement, credential attacks, penetration testing."
+                },
+                {
+                    name: "Crackmapexec",
+                    category: "security",
+                    description: "Swiss army knife for pentesting networks with focus on Active Directory environments.",
+                    installation: "pip install crackmapexec",
+                    usage: "crackmapexec smb 192.168.1.0/24",
+                    useCase: "Active Directory testing, credential spraying, lateral movement, Windows penetration testing."
+                },
+                {
+                    name: "Bloodhound",
+                    category: "security",
+                    description: "Tool for analyzing Active Directory trust relationships and finding attack paths.",
+                    installation: "Download from GitHub",
+                    usage: "bloodhound",
+                    useCase: "Active Directory analysis, privilege escalation paths, domain security assessment."
+                },
+                {
+                    name: "Mimikatz",
+                    category: "security",
+                    description: "Tool for extracting plaintexts passwords, hash, PIN code and kerberos tickets from memory.",
+                    installation: "Download from GitHub",
+                    usage: "mimikatz.exe",
+                    useCase: "Credential extraction, Windows post-exploitation, memory analysis, penetration testing."
+                },
+                {
+                    name: "Responder",
+                    category: "security",
+                    description: "LLMNR, NBT-NS and MDNS poisoner with built-in HTTP/SMB/MSSQL/FTP/LDAP rogue authentication server.",
+                    installation: "pkg install responder",
+                    usage: "responder -I wlan0",
+                    useCase: "Credential harvesting, LLMNR poisoning, network attacks, penetration testing."
+                },
+                {
+                    name: "Empire",
+                    category: "security",
+                    description: "Post-exploitation framework that includes a pure-PowerShell Windows agent and Python Linux/macOS agent.",
+                    installation: "git clone https://github.com/EmpireProject/Empire",
+                    usage: "./empire",
+                    useCase: "Post-exploitation, command and control, persistence, lateral movement, penetration testing."
+                },
+                {
+                    name: "Covenant",
+                    category: "security",
+                    description: ".NET command and control framework that aims to highlight attack surface of .NET applications.",
+                    installation: "git clone https://github.com/cobbr/Covenant",
+                    usage: "dotnet run",
+                    useCase: "Command and control, .NET exploitation, post-exploitation, red team operations."
+                },
+                {
+                    name: "Cobalt Strike",
+                    category: "security",
+                    description: "Commercial penetration testing tool for Adversary Simulations and Red Team Operations.",
+                    installation: "Commercial license required",
+                    usage: "java -jar cobaltstrike.jar",
+                    useCase: "Red team operations, adversary simulation, command and control, penetration testing."
+                },
+                {
+                    name: "Meterpreter",
+                    category: "security",
+                    description: "Advanced payload that provides interactive shell through which you can explore target machine.",
+                    installation: "Part of Metasploit",
+                    usage: "use payload/windows/meterpreter/reverse_tcp",
+                    useCase: "Post-exploitation, remote access, system control, penetration testing, red teaming."
+                },
+                {
+                    name: "Netsh",
+                    category: "networking",
+                    description: "Windows command-line utility for configuring and monitoring network settings and services.",
+                    installation: "Built into Windows",
+                    usage: "netsh wlan show profiles",
+                    useCase: "Network configuration, WiFi management, firewall rules, network troubleshooting."
+                },
+                {
+                    name: "Iwconfig",
+                    category: "networking",
+                    description: "Linux wireless configuration utility for configuring wireless network interfaces.",
+                    installation: "pkg install wireless-tools",
+                    usage: "iwconfig wlan0",
+                    useCase: "Wireless configuration, WiFi management, network interface setup, wireless troubleshooting."
+                },
+                {
+                    name: "Iwlist",
+                    category: "networking",
+                    description: "Linux utility for displaying detailed wireless information from wireless interfaces.",
+                    installation: "pkg install wireless-tools",
+                    usage: "iwlist wlan0 scan",
+                    useCase: "WiFi scanning, wireless network discovery, signal strength monitoring, network analysis."
+                },
+                {
+                    name: "Iw",
+                    category: "networking",
+                    description: "New nl80211 based CLI configuration utility for wireless devices replacing iwconfig.",
+                    installation: "pkg install iw",
+                    usage: "iw dev wlan0 scan",
+                    useCase: "Modern wireless configuration, WiFi management, monitor mode setup, wireless analysis."
+                },
+                {
+                    name: "Wpa_supplicant",
+                    category: "networking",
+                    description: "Cross-platform supplicant with support for WEP, WPA and WPA2 for wireless networks.",
+                    installation: "pkg install wpa-supplicant",
+                    usage: "wpa_supplicant -i wlan0 -c /etc/wpa_supplicant.conf",
+                    useCase: "WiFi authentication, wireless connection management, enterprise WiFi, network security."
+                },
+                {
+                    name: "Hostapd-wpe",
+                    category: "security",
+                    description: "Modified hostapd for conducting targeted evil twin attacks against WPA2-Enterprise networks.",
+                    installation: "git clone https://github.com/OpenSecurityResearch/hostapd-wpe",
+                    usage: "hostapd-wpe hostapd-wpe.conf",
+                    useCase: "Evil twin attacks, WPA2-Enterprise testing, credential harvesting, wireless penetration testing."
+                },
+                {
+                    name: "Eaphammer",
+                    category: "security",
+                    description: "Toolkit for performing targeted evil twin attacks against WPA2-Enterprise networks.",
+                    installation: "git clone https://github.com/s0lst1c3/eaphammer",
+                    usage: "./eaphammer --interface wlan0 --essid TestNetwork",
+                    useCase: "WPA2-Enterprise attacks, credential harvesting, evil twin attacks, wireless security testing."
+                },
+                {
+                    name: "Wifiphisher",
+                    category: "security",
+                    description: "Rogue Access Point framework for conducting red team engagements or WiFi security testing.",
+                    installation: "pip install wifiphisher",
+                    usage: "wifiphisher",
+                    useCase: "Rogue access points, credential harvesting, social engineering, WiFi security testing."
+                },
+                {
+                    name: "Fluxion",
+                    category: "security",
+                    description: "Security auditing and social-engineering research tool for testing WiFi security.",
+                    installation: "git clone https://github.com/FluxionNetwork/fluxion",
+                    usage: "./fluxion.sh",
+                    useCase: "WiFi security testing, evil twin attacks, social engineering, penetration testing."
+                },
+                {
+                    name: "Linset",
+                    category: "security",
+                    description: "Evil Twin attack framework that creates rogue access points for credential harvesting.",
+                    installation: "git clone https://github.com/vk496/linset",
+                    usage: "./linset",
+                    useCase: "Evil twin attacks, WiFi credential harvesting, social engineering, security testing."
+                },
+                {
+                    name: "Airgeddon",
+                    category: "security",
+                    description: "Multi-use bash script for Linux systems to audit wireless networks with various attack methods.",
+                    installation: "git clone https://github.com/v1s1t0r1sh3r3/airgeddon",
+                    usage: "./airgeddon.sh",
+                    useCase: "Wireless auditing, multiple attack vectors, WiFi security testing, penetration testing automation."
+                },
+                {
+                    name: "Wifijammer",
+                    category: "security",
+                    description: "Continuously jam all WiFi clients and access points within range using deauthentication attacks.",
+                    installation: "git clone https://github.com/DanMcInerney/wifijammer",
+                    usage: "python wifijammer.py",
+                    useCase: "WiFi jamming, deauthentication attacks, wireless denial of service, security testing."
+                },
+                {
+                    name: "Mdk3",
+                    category: "security",
+                    description: "Wireless attack tool for IEEE 802.11 networks with various attack modes.",
+                    installation: "pkg install mdk3",
+                    usage: "mdk3 wlan0mon b -t BSSID",
+                    useCase: "Wireless attacks, beacon flooding, deauthentication, WiFi security testing."
+                },
+                {
+                    name: "Mdk4",
+                    category: "security",
+                    description: "Updated version of mdk3 with new attack methods and improved stability.",
+                    installation: "git clone https://github.com/aircrack-ng/mdk4",
+                    usage: "mdk4 wlan0mon b -t BSSID",
+                    useCase: "Advanced wireless attacks, WiFi security testing, denial of service, penetration testing."
+                },
+                {
+                    name: "Scapy",
+                    category: "security",
+                    description: "Powerful Python-based interactive packet manipulation program and library.",
+                    installation: "pip install scapy",
+                    usage: "scapy",
+                    useCase: "Packet crafting, network protocol analysis, custom attacks, security research."
+                },
+                {
+                    name: "Hping3",
+                    category: "security",
+                    description: "Network tool able to send custom TCP/IP packets and display target replies.",
+                    installation: "pkg install hping3",
+                    usage: "hping3 -S -p 80 target.com",
+                    useCase: "Packet crafting, firewall testing, port scanning, network troubleshooting, DoS testing."
+                },
+                {
+                    name: "Nping",
+                    category: "security",
+                    description: "Network packet generation tool and packet analyzer that is part of the Nmap suite.",
+                    installation: "pkg install nmap",
+                    usage: "nping --tcp -p 80 target.com",
+                    useCase: "Packet generation, network testing, connectivity verification, security testing."
+                },
+                {
+                    name: "Packeth",
+                    category: "security",
+                    description: "GUI packet generator tool for Ethernet that allows creation of custom network packets.",
+                    installation: "pkg install packeth",
+                    usage: "packeth",
+                    useCase: "Packet crafting, network testing, protocol analysis, security research."
+                },
+                {
+                    name: "Ostinato",
+                    category: "security",
+                    description: "Packet/traffic generator and analyzer with friendly GUI for network testing.",
+                    installation: "pkg install ostinato",
+                    usage: "ostinato",
+                    useCase: "Traffic generation, network performance testing, protocol testing, load testing."
+                },
+                {
+                    name: "Tcpreplay",
+                    category: "security",
+                    description: "Suite of utilities for editing and replaying previously captured network traffic.",
+                    installation: "pkg install tcpreplay",
+                    usage: "tcpreplay -i eth0 capture.pcap",
+                    useCase: "Traffic replay, network testing, IDS testing, performance analysis."
+                },
+                {
+                    name: "Tcpflow",
+                    category: "security",
+                    description: "Program that captures data transmitted as part of TCP connections and stores data in files.",
+                    installation: "pkg install tcpflow",
+                    usage: "tcpflow -i wlan0",
+                    useCase: "TCP stream analysis, network forensics, data extraction, traffic analysis."
+                },
+                {
+                    name: "Dsniff",
+                    category: "security",
+                    description: "Collection of tools for network auditing and penetration testing including password sniffing.",
+                    installation: "pkg install dsniff",
+                    usage: "dsniff -i wlan0",
+                    useCase: "Password sniffing, network auditing, man-in-the-middle attacks, security testing."
+                },
+                {
+                    name: "Urlsnarf",
+                    category: "security",
+                    description: "Tool for monitoring HTTP requests on a network interface for security auditing.",
+                    installation: "Part of dsniff",
+                    usage: "urlsnarf -i wlan0",
+                    useCase: "HTTP monitoring, web traffic analysis, security auditing, network surveillance."
+                },
+                {
+                    name: "Mailsnarf",
+                    category: "security",
+                    description: "Tool for capturing and analyzing email traffic on network interfaces.",
+                    installation: "Part of dsniff",
+                    usage: "mailsnarf -i wlan0",
+                    useCase: "Email monitoring, mail traffic analysis, security auditing, network surveillance."
+                },
+                {
+                    name: "Webspy",
+                    category: "security",
+                    description: "Tool for monitoring web browsing activity on network interfaces in real-time.",
+                    installation: "Part of dsniff",
+                    usage: "webspy -i wlan0 host",
+                    useCase: "Web activity monitoring, browsing surveillance, security auditing, network analysis."
+                },
+                {
+                    name: "Arpspoof",
+                    category: "security",
+                    description: "Tool for conducting ARP spoofing attacks to intercept network traffic.",
+                    installation: "Part of dsniff",
+                    usage: "arpspoof -i wlan0 -t target gateway",
+                    useCase: "ARP spoofing, man-in-the-middle attacks, traffic interception, network security testing."
+                },
+                {
+                    name: "Dnsspoof",
+                    category: "security",
+                    description: "Tool for conducting DNS spoofing attacks to redirect network traffic.",
+                    installation: "Part of dsniff",
+                    usage: "dnsspoof -i wlan0 -f hosts_file",
+                    useCase: "DNS spoofing, traffic redirection, man-in-the-middle attacks, security testing."
+                },
+                {
+                    name: "Macchanger",
+                    category: "security",
+                    description: "Utility for changing MAC addresses of network interfaces for privacy and security.",
+                    installation: "pkg install macchanger",
+                    usage: "macchanger -r wlan0",
+                    useCase: "MAC address spoofing, privacy protection, network anonymity, security testing."
+                },
+                {
+                    name: "Spooftooph",
+                    category: "security",
+                    description: "Tool designed to automate spoofing or cloning Bluetooth device information.",
+                    installation: "pkg install spooftooph",
+                    usage: "spooftooph -i hci0 -a target_mac",
+                    useCase: "Bluetooth spoofing, device cloning, Bluetooth security testing, privacy research."
+                },
+                {
+                    name: "Btscanner",
+                    category: "security",
+                    description: "Bluetooth device scanner that extracts information from Bluetooth devices in range.",
+                    installation: "pkg install btscanner",
+                    usage: "btscanner",
+                    useCase: "Bluetooth reconnaissance, device discovery, Bluetooth security assessment, surveillance."
+                },
+                {
+                    name: "Bluelog",
+                    category: "security",
+                    description: "Bluetooth scanner designed to tell you how many discoverable devices there are in an area.",
+                    installation: "pkg install bluelog",
+                    usage: "bluelog -i hci0",
+                    useCase: "Bluetooth monitoring, device tracking, surveillance, Bluetooth security research."
+                },
+                {
+                    name: "Bluesnarfer",
+                    category: "security",
+                    description: "Tool for attacking Bluetooth-enabled devices to download information via OBEX protocol.",
+                    installation: "pkg install bluesnarfer",
+                    usage: "bluesnarfer -b target_mac -C 7",
+                    useCase: "Bluetooth exploitation, data extraction, Bluetooth security testing, penetration testing."
+                },
+                {
+                    name: "Bluebugger",
+                    category: "security",
+                    description: "Tool for exploiting Bluetooth vulnerabilities to gain unauthorized access to devices.",
+                    installation: "Custom compilation required",
+                    usage: "bluebugger target_mac",
+                    useCase: "Bluetooth exploitation, unauthorized access, Bluetooth security testing, research."
+                },
+                {
+                    name: "Rfcomm",
+                    category: "networking",
+                    description: "Tool for setting up, maintaining, and inspecting RFCOMM configuration of Bluetooth devices.",
+                    installation: "pkg install bluez",
+                    usage: "rfcomm connect 0 target_mac 1",
+                    useCase: "Bluetooth communication, RFCOMM connections, Bluetooth development, device interaction."
+                },
+                {
+                    name: "Hcitool",
+                    category: "networking",
+                    description: "Tool for configuring Bluetooth connections and sending special commands to Bluetooth devices.",
+                    installation: "pkg install bluez",
+                    usage: "hcitool scan",
+                    useCase: "Bluetooth device management, scanning, connection setup, Bluetooth troubleshooting."
+                },
+                {
+                    name: "Hciconfig",
+                    category: "networking",
+                    description: "Tool for configuring Bluetooth devices and displaying information about Bluetooth adapters.",
+                    installation: "pkg install bluez",
+                    usage: "hciconfig hci0 up",
+                    useCase: "Bluetooth adapter configuration, device management, Bluetooth troubleshooting."
+                },
+                {
+                    name: "Hcidump",
+                    category: "security",
+                    description: "Tool for monitoring Bluetooth activity and capturing Bluetooth packets for analysis.",
+                    installation: "pkg install bluez",
+                    usage: "hcidump -i hci0",
+                    useCase: "Bluetooth packet capture, protocol analysis, Bluetooth security research, debugging."
+                },
+                {
+                    name: "Sdptool",
+                    category: "networking",
+                    description: "Tool for performing SDP queries on Bluetooth devices to discover available services.",
+                    installation: "pkg install bluez",
+                    usage: "sdptool browse target_mac",
+                    useCase: "Bluetooth service discovery, SDP queries, Bluetooth reconnaissance, service enumeration."
+                },
+                {
+                    name: "L2ping",
+                    category: "networking",
+                    description: "Tool for sending L2CAP echo requests to Bluetooth devices for connectivity testing.",
+                    installation: "pkg install bluez",
+                    usage: "l2ping target_mac",
+                    useCase: "Bluetooth connectivity testing, L2CAP testing, Bluetooth troubleshooting, network diagnostics."
+                },
+                {
+                    name: "Ubertooth",
+                    category: "security",
+                    description: "Open source 2.4 GHz wireless development platform suitable for Bluetooth experimentation.",
+                    installation: "pkg install ubertooth",
+                    usage: "ubertooth-btle -f",
+                    useCase: "Bluetooth Low Energy analysis, wireless research, Bluetooth security testing, protocol analysis."
+                },
+                {
+                    name: "Crackle",
+                    category: "security",
+                    description: "Tool for cracking Bluetooth Low Energy encryption using captured packets.",
+                    installation: "git clone https://github.com/mikeryan/crackle",
+                    usage: "crackle -i input.pcap",
+                    useCase: "BLE encryption cracking, Bluetooth security testing, cryptographic analysis."
+                },
+                {
+                    name: "Gattacker",
+                    category: "security",
+                    description: "Tool for Bluetooth Low Energy security testing and GATT protocol analysis.",
+                    installation: "git clone https://github.com/securing/gattacker",
+                    usage: "python gattacker.py",
+                    useCase: "BLE security testing, GATT analysis, Bluetooth Low Energy penetration testing."
+                },
+                {
+                    name: "Bettercap BLE",
+                    category: "security",
+                    description: "Bluetooth Low Energy module for bettercap framework for BLE attacks and monitoring.",
+                    installation: "Part of bettercap",
+                    usage: "bettercap -eval 'ble.recon on'",
+                    useCase: "BLE reconnaissance, Bluetooth Low Energy attacks, wireless security testing."
+                },
+                {
+                    name: "Bluehydra",
+                    category: "security",
+                    description: "Bluetooth device discovery service with device tracking and profiling capabilities.",
+                    installation: "git clone https://github.com/pwnieexpress/blue_hydra",
+                    usage: "blue_hydra",
+                    useCase: "Bluetooth device tracking, surveillance, device profiling, security monitoring."
+                },
+                {
+                    name: "Bluetooth-arsenal",
+                    category: "security",
+                    description: "Collection of Bluetooth security tools and utilities for penetration testing.",
+                    installation: "git clone https://github.com/1N3/Bluetooth-Arsenal",
+                    usage: "Various tools included",
+                    useCase: "Bluetooth security testing, penetration testing toolkit, Bluetooth research."
+                },
+                {
+                    name: "Iptables",
+                    category: "security",
+                    description: "User-space utility program for configuring Linux kernel firewall rules.",
+                    installation: "pkg install iptables",
+                    usage: "iptables -A INPUT -p tcp --dport 22 -j ACCEPT",
+                    useCase: "Firewall configuration, network security, traffic filtering, access control."
+                },
+                {
+                    name: "Ufw",
+                    category: "security",
+                    description: "Uncomplicated Firewall - frontend for iptables designed to make firewall configuration easier.",
+                    installation: "pkg install ufw",
+                    usage: "ufw enable",
+                    useCase: "Simple firewall management, network security, easy firewall configuration."
+                },
+                {
+                    name: "Fail2ban",
+                    category: "security",
+                    description: "Intrusion prevention software framework that protects servers from brute-force attacks.",
+                    installation: "pkg install fail2ban",
+                    usage: "fail2ban-client status",
+                    useCase: "Intrusion prevention, brute force protection, automated security response, log monitoring."
+                },
+                {
+                    name: "Psad",
+                    category: "security",
+                    description: "Port Scan Attack Detector that monitors firewall logs for suspicious activity.",
+                    installation: "pkg install psad",
+                    usage: "psad --sig-update",
+                    useCase: "Port scan detection, intrusion detection, network monitoring, security alerting."
+                },
+                {
+                    name: "Snort",
+                    category: "security",
+                    description: "Open source intrusion prevention system capable of real-time traffic analysis and packet logging.",
+                    installation: "pkg install snort",
+                    usage: "snort -i wlan0 -c /etc/snort/snort.conf",
+                    useCase: "Intrusion detection, network monitoring, traffic analysis, security alerting."
+                },
+                {
+                    name: "Suricata",
+                    category: "security",
+                    description: "High performance Network IDS, IPS and Network Security Monitoring engine.",
+                    installation: "pkg install suricata",
+                    usage: "suricata -i wlan0 -c /etc/suricata/suricata.yaml",
+                    useCase: "Network intrusion detection, traffic monitoring, security analysis, threat detection."
+                },
+                {
+                    name: "Zeek",
+                    category: "security",
+                    description: "Powerful network analysis framework for comprehensive network traffic analysis and security monitoring.",
+                    installation: "pkg install zeek",
+                    usage: "zeek -i wlan0",
+                    useCase: "Network traffic analysis, security monitoring, protocol analysis, incident response."
+                },
+                {
+                    name: "Ossec",
+                    category: "security",
+                    description: "Open Source Host-based Intrusion Detection System for log analysis and integrity checking.",
+                    installation: "pkg install ossec-hids",
+                    usage: "/var/ossec/bin/ossec-control start",
+                    useCase: "Host intrusion detection, log analysis, file integrity monitoring, security alerting."
+                },
+                {
+                    name: "Samhain",
+                    category: "security",
+                    description: "Host-based intrusion detection system providing file integrity checking and log file monitoring.",
+                    installation: "pkg install samhain",
+                    usage: "samhain -t init",
+                    useCase: "File integrity monitoring, host intrusion detection, security auditing, compliance."
+                },
+                {
+                    name: "Aide",
+                    category: "security",
+                    description: "Advanced Intrusion Detection Environment - file and directory integrity checker.",
+                    installation: "pkg install aide",
+                    usage: "aide --init",
+                    useCase: "File integrity checking, intrusion detection, system monitoring, compliance auditing."
+                },
+                {
+                    name: "Tripwire",
+                    category: "security",
+                    description: "File and directory integrity checker that detects unauthorized changes to system files.",
+                    installation: "pkg install tripwire",
+                    usage: "tripwire --init",
+                    useCase: "File integrity monitoring, intrusion detection, compliance, security auditing."
+                },
+                {
+                    name: "Chkrootkit",
+                    category: "security",
+                    description: "Tool to locally check for signs of a rootkit installation on Unix systems.",
+                    installation: "pkg install chkrootkit",
+                    usage: "chkrootkit",
+                    useCase: "Rootkit detection, system security assessment, malware detection, incident response."
+                },
+                {
+                    name: "Rkhunter",
+                    category: "security",
+                    description: "Unix-based tool that scans for rootkits, backdoors and possible local exploits.",
+                    installation: "pkg install rkhunter",
+                    usage: "rkhunter --check",
+                    useCase: "Rootkit detection, system integrity checking, security monitoring, malware detection."
+                },
+                {
+                    name: "Unhide",
+                    category: "security",
+                    description: "Forensic tool to find hidden processes and TCP/UDP ports by rootkits or LKMs.",
+                    installation: "pkg install unhide",
+                    usage: "unhide proc",
+                    useCase: "Hidden process detection, rootkit analysis, forensic investigation, security assessment."
+                },
+                {
+                    name: "Tiger",
+                    category: "security",
+                    description: "Security auditing and intrusion detection tool for Unix systems.",
+                    installation: "pkg install tiger",
+                    usage: "tiger",
+                    useCase: "Security auditing, system hardening, vulnerability assessment, compliance checking."
+                },
+                {
+                    name: "Logwatch",
+                    category: "security",
+                    description: "Log analysis system that parses system logs and creates summary reports.",
+                    installation: "pkg install logwatch",
+                    usage: "logwatch --detail high",
+                    useCase: "Log analysis, security monitoring, system administration, automated reporting."
+                },
+                {
+                    name: "Logcheck",
+                    category: "security",
+                    description: "Tool for automatically checking system log files for security violations and unusual activity.",
+                    installation: "pkg install logcheck",
+                    usage: "logcheck -o",
+                    useCase: "Automated log monitoring, security alerting, intrusion detection, system monitoring."
+                },
+                {
+                    name: "Swatch",
+                    category: "security",
+                    description: "Simple log file watcher that monitors log files and performs actions based on patterns.",
+                    installation: "pkg install swatch",
+                    usage: "swatch --config-file=/etc/swatch.conf",
+                    useCase: "Real-time log monitoring, automated alerting, security monitoring, incident response."
+                },
+                {
+                    name: "Sec",
+                    category: "security",
+                    description: "Simple Event Correlator for real-time log file monitoring and event correlation.",
+                    installation: "pkg install sec",
+                    usage: "sec -conf=/etc/sec.conf -input=/var/log/messages",
+                    useCase: "Event correlation, log analysis, security monitoring, automated response."
+                }
+            ]
+        };
+
+        let currentFilter = 'all';
+        let searchTerm = '';
+
+        function renderTools() {
+            const nonRootedGrid = document.getElementById('nonRootedGrid');
+            const rootedGrid = document.getElementById('rootedGrid');
+            
+            nonRootedGrid.innerHTML = '';
+            rootedGrid.innerHTML = '';
+
+            // Filter and render non-rooted tools
+            const filteredNonRooted = termuxTools.nonRooted.filter(tool => {
+                const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    tool.category.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesFilter = currentFilter === 'all' || 
+                                    currentFilter === 'non-rooted' || 
+                                    tool.category === currentFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            // Filter and render rooted tools
+            const filteredRooted = termuxTools.rooted.filter(tool => {
+                const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    tool.category.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesFilter = currentFilter === 'all' || 
+                                    currentFilter === 'rooted' || 
+                                    tool.category === currentFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            // Show/hide sections based on filter
+            const nonRootedSection = document.getElementById('nonRootedSection');
+            const rootedSection = document.getElementById('rootedSection');
+            
+            if (currentFilter === 'rooted') {
+                nonRootedSection.classList.add('hidden');
+                rootedSection.classList.remove('hidden');
+            } else if (currentFilter === 'non-rooted') {
+                nonRootedSection.classList.remove('hidden');
+                rootedSection.classList.add('hidden');
+            } else {
+                nonRootedSection.classList.remove('hidden');
+                rootedSection.classList.remove('hidden');
+            }
+
+            // Render non-rooted tools
+            filteredNonRooted.forEach(tool => {
+                const toolCard = createToolCard(tool);
+                nonRootedGrid.appendChild(toolCard);
+            });
+
+            // Render rooted tools
+            filteredRooted.forEach(tool => {
+                const toolCard = createToolCard(tool);
+                rootedGrid.appendChild(toolCard);
+            });
+
+            // Update stats
+            document.getElementById('totalTools').textContent = (filteredNonRooted.length + filteredRooted.length).toLocaleString();
+            document.getElementById('nonRootedTools').textContent = filteredNonRooted.length.toLocaleString();
+            document.getElementById('rootedTools').textContent = filteredRooted.length.toLocaleString();
+        }
+
+        function createToolCard(tool) {
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            
+            const categoryEmoji = {
+                'networking': '🌐',
+                'security': '🔒',
+                'development': '💻'
+            };
+
+            card.innerHTML = `
+                <div class="tool-name">${categoryEmoji[tool.category] || '🔧'} ${tool.name}</div>
+                <div class="tool-description">${tool.description}</div>
+                <div class="tool-details" id="details-${tool.name.replace(/\s+/g, '-')}">
+                    <h4>📦 Installation:</h4>
+                    <div class="install-code">
+                        <button class="copy-btn" onclick="copyToClipboard('${tool.installation}')">Copy</button>
+                        ${tool.installation}
+                    </div>
+                    <h4>🚀 Usage Example:</h4>
+                    <div class="install-code">
+                        <button class="copy-btn" onclick="copyToClipboard('${tool.usage}')">Copy</button>
+                        ${tool.usage}
+                    </div>
+                    <h4>💡 Use Cases:</h4>
+                    <p>${tool.useCase}</p>
+                </div>
+            `;
+
+            card.addEventListener('click', () => {
+                const details = card.querySelector('.tool-details');
+                details.classList.toggle('show');
+            });
+
+            return card;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Could add a toast notification here
+                console.log('Copied to clipboard:', text);
+            });
+        }
+
+        // Event listeners
+        document.getElementById('searchBox').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderTools();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                renderTools();
+            });
+        });
+
+        // Initial render
+        renderTools();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'994054b7d2213226',t:'MTc2MTM4MDgwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
